@@ -24,34 +24,34 @@ export default function Faq({ navigation }) {
             <View style={{ paddingTop: 30 }} />
             <TouchableOpacity onPress={() => setQuestion1(!question1)}>
                 <Text style={styles.question}>
-                    O que é UniGeek?
+                    O que é UniEvents?
                 </Text>
             </TouchableOpacity>
             {question1 && (
                 <Text style={styles.answer}>
-                    UniGeek é um aplicativo desenvolvido para o evento Geek.
+                    UniEvents é um aplicativo desenvolvido para mostrar onde os eventos da faculdade Mauricio de Nassau irá acontencer.
                 </Text>
             )}
 
             <TouchableOpacity onPress={() => setQuestion2(!question2)}>
                 <Text style={styles.question}>
-                    Quais são as vantagens de usar o UniGeek?
+                    Quais são as vantagens de usar o UniEvents?
                 </Text>
             </TouchableOpacity>
             {question2 && (
                 <Text style={styles.answer}>
-                    UniGeek permite ajudar o usuário a encontrar o local desejado.
+                    UniEvents permite ajudar o usuário a encontrar o local desejado mais rapido.
                 </Text>
             )}
 
             <TouchableOpacity onPress={() => setQuestion3(!question3)}>
                 <Text style={styles.question}>
-                    O UniGeek é gratuito?
+                    O UniEvents é gratuito?
                 </Text>
             </TouchableOpacity>
             {question3 && (
                 <Text style={styles.answer}>
-                    Sim, o UniGeek é gratuito.
+                    Sim, o UniEvents é gratuito.
                 </Text>
             )}
 
@@ -101,13 +101,13 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 10,
         fontFamily: 'Rubik-Regular',
-        color: '#FFFFFF'
+        color: '#FFFF99'
     },
     answer: {
         fontSize: 15,
         marginBottom: 20,
         fontFamily: 'Rubik-Regular',
-        color: '#E0E0E0'
+        color: '#FFFFFF'
     },
     reserved: {
         fontSize: 18,
