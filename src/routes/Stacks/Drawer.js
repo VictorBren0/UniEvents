@@ -20,9 +20,9 @@ const Drawer = createDrawerNavigator();
 export default function MyDrawer({ navigation }) {
   return (
     <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} screenOptions={{
-      drawerLabelStyle: {paddingRight: 25, fontFamily: 'Rubik-Regular', fontSize: 16},
+      drawerLabelStyle: {paddingRight: 25, fontFamily: 'WorkSans-Regular', fontSize: 16},
       drawerActiveBackgroundColor: '#F8E257',
-      drawerActiveTintColor: '#2C2626',
+      drawerActiveTintColor: '#093D73',
       drawerInactiveTintColor: '#FFFFFF',
       headerStyle: {
         backgroundColor: '#093D73',
@@ -32,8 +32,6 @@ export default function MyDrawer({ navigation }) {
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 22,
-        
-
       },
     }}>
       <Drawer.Screen

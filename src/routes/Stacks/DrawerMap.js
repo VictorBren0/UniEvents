@@ -27,8 +27,6 @@ export default function MyDrawerMap({navigation}) {
       headerTitleStyle: {
         fontWeight: 'bold',
         fontSize: 22,
-
-
       },
     }}>
       <DrawerMap.Screen

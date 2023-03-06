@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     },
     text: {
         alignItems: 'center',
-        fontFamily: 'Rubik-Regular',
+        fontFamily: 'WorkSans-Regular',
         fontSize: 16,
         color: '#093D73',
         width: 320,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     textContent: {
-        fontFamily: 'Rubik-Regular',
+        fontFamily: 'WorkSans-Regular',
         fontSize: 16,
         color: '#093D73',
         top: 10
@@ -102,16 +102,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     bottonText: {
-        fontFamily: 'Rubik-One',
+        fontFamily: 'WorkSans-Bold',
         fontSize: 23,
         color: '#D5042B'
     },
     title: {
-        fontFamily: 'Rubik-One',
+        fontFamily: 'WorkSans-Bold',
         fontSize: 23,
         color: '#093D73'
     },
     bold: {
-        fontFamily: 'Rubik-One',
+        fontFamily: 'WorkSans-Bold',
     }
 })

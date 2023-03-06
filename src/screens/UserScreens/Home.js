@@ -39,16 +39,18 @@ const DATA = [
 export default function Home({ navigation }) {
   return (
     <SafeAreaView style={styles.container}>
-        <View style={{ paddingBottom: 60 }}/>
+        <View style={{ paddingBottom: 40 }}/>
       <Image style={styles.image} source={Logo} resizeMode="contain" />
-      <View style={{ paddingTop: 100 }}/>
+      <View style={{ paddingTop: 20 }}>
+        <Text style={styles.text}>Selecione uma das opções abaixo:</Text>
+        </View>
+        <View style={{ paddingTop: 30 }}></View>
       <FlatList
           data={DATA}
           keyExtractor={item => item.name}
-          numColumns={2}
           renderItem={({item}) => {
             return (
-                <View style={{padding: 5}}>
+                <View style={{padding: 10}}>
                 <TouchableOpacity
                   onPress={() => {
                     navigation.navigate(item.page);
@@ -79,16 +81,24 @@ const styles = StyleSheet.create({
     height: "20%"
   },
   card: {
-    width: 166,
-    height: 136,
+    width: 285,
+    height: 74,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
-    backgroundColor: '#2E5887'
+    backgroundColor: '#2E5887',
+    flexDirection: 'row'
   },
   textCard: {
-    fontFamily: 'Rubik-One',
+    fontFamily: 'WorkSans-Bold',
     fontSize: 14,
+    color: '#F8E257',
+    paddingLeft: 90,
+    right: 50
+  },
+  text: {
+    fontFamily: 'WorkSans-Bold',
+    fontSize: 20,
     color: '#F8E257',
     paddingTop: 15
   }

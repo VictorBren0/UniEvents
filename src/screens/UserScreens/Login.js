@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import Logo from '../../assets/image/LOGO.png';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import CustomButton from '../../components/CustomButton';
 
 export default function Login({ navigation }) {
   return (
@@ -50,9 +51,13 @@ export default function Login({ navigation }) {
         <Text style={styles.text}>Esqueceu a senha?</Text>
         </TouchableOpacity>
         <View style={{ paddingTop: 100 }}>
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate("Register")}>
-          <Text style={[styles.bottonText, { color: '#0C264F' }]}>ENTRAR</Text>
-        </TouchableOpacity>
+        <CustomButton
+          text="Entrar"
+          backgroundColor="#EFD741"
+          textColor="#0C264F"
+          onPress={() => navigation.navigate('Login')}
+          style={{marginBottom: 20}}
+        />
       </View>
         
     </SafeAreaView>
@@ -79,7 +84,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderBottomWidth: 1,
     borderColor: '#FFFFFF',
-    paddingLeft: 10
+    paddingLeft: 10,
+    fontFamily: 'WorkSans-Regular',
   },
   back: {
     position: 'absolute',
@@ -91,21 +97,8 @@ const styles = StyleSheet.create({
     borderColor: '#FFFFFF',
     paddingTop: 5
   },
-  button: {
-    width: 281,
-    height: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F8E257',
-    borderRadius: 10,
-    elevation: 2,
-  },
-  bottonText: {
-    fontFamily: 'Rubik-One',
-    fontSize: 22
-  },
   text: {
-    fontFamily: 'Rubik-Regular',
+    fontFamily: 'WorkSans-Regular',
     fontSize: 16,
     color: '#EFD741',
     paddingTop: 40,

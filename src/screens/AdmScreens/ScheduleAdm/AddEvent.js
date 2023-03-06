@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     },
     text: {
         alignItems: 'center',
-        fontFamily: 'Rubik-Regular',
+        fontFamily: 'WorkSans-Regular',
         fontSize: 16,
         color: '#FFFFFF',
     },
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     bottonText: {
-        fontFamily: 'Rubik-One',
+        fontFamily: 'WorkSans-Bold',
         fontSize: 22
     },
 

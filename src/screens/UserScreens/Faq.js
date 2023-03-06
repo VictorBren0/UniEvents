@@ -100,18 +100,19 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginTop: 20,
         marginBottom: 10,
-        fontFamily: 'Rubik-Regular',
+        fontFamily: 'WorkSans-Regular',
         color: '#FFFF99'
+
     },
     answer: {
         fontSize: 15,
         marginBottom: 20,
-        fontFamily: 'Rubik-Regular',
-        color: '#FFFFFF'
+        fontFamily: 'WorkSans-Regular',
+        color: '#FFFFFF',
     },
     reserved: {
         fontSize: 18,
         marginBottom: 20,
-        fontFamily: 'Rubik-Regular',
+        fontFamily: 'WorkSans-Regular',
     },
 })

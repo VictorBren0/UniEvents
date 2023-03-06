@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   textCard: {
-    fontFamily: 'Rubik-One',
+    fontFamily: 'WorkSans-Bold',
     fontSize: 16,
     color: '#FFFFFF',
     paddingLeft: 20,

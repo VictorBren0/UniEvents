@@ -23,11 +23,18 @@ export default function Map({ navigation}) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [listMap, setListMap] = useState([]);
+  const [apiAvailable, setApiAvailable] = useState(true);
+
 
   const getMap = async () => {
-    const response = await getMaps();
-    setListMap(response.data);
-  }
+    try {
+      const response = await getMaps();
+      setListMap(response.data);
+      setApiAvailable(true); // atualiza a variável para indicar que a API está funcionando
+    } catch (error) {
+      setApiAvailable(false); // atualiza a variável para indicar que a API está indisponível
+    }
+  };
 
   useEffect(() => {
     getMap()
@@ -44,6 +51,11 @@ export default function Map({ navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
+      {!apiAvailable && ( // verifica se a API está indisponível e exibe uma mensagem de alerta
+        <View>
+          <Text style={styles.alertText}>Estamos indisponível no momento! Tente novamente mais tarde.</Text>
+        </View>
+      )}
       <View style={{ padding: 30 }}>
         <Text style={styles.titleText}>
           Selecione o local desejado:
@@ -69,7 +81,7 @@ export default function Map({ navigation}) {
           </TouchableOpacity>
         )}
       />
-      <View style={{ flex: 10 }}>
+      <View style={{ flex: 3 }}>
         {selectedId && (
           <MapImage selectedItem={selectedItem} />
         )}
@@ -88,23 +100,29 @@ const styles = StyleSheet.create({
   button: {
     width: 130,
     height: 55,
-    backgroundColor: '#1C1C1C',
-    opacity: 0.6,
+    backgroundColor: '#C5CEA0',
     alignItems: 'center',
     justifyContent: 'center'
   },
   buttonText: {
     fontSize: 16,
-    fontFamily: 'Rubik-Regular',
-    color: '#FFFFFF'
+    fontFamily: 'WorkSans-Regular',
+    color: '#0C264F'
   },
   selectedButtonText: {
     borderBottomWidth: 3,
-    borderBottomColor: '#011AFF',
+    borderBottomColor: '#0C264F',
   },
   titleText: {
     fontSize: 21,
-    fontFamily: 'Rubik-Regular',
-    color: '#FFFFFF'
+    fontFamily: 'WorkSans-Bold',
+    color: '#0C264F',
+  },
+  alertText: {
+    fontSize: 20,
+    fontFamily: 'WorkSans-Bold',
+    color: 'red',
+    textAlign: 'center',
+    top: 300
   },
 });

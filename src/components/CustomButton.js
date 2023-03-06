@@ -28,7 +28,7 @@ const styles = {
     elevation: 2,
   },
   bottonText: {
-    fontFamily: 'Rubik-One',
+    fontFamily: 'WorkSans-Bold',
     fontSize: 22,
   },
 };

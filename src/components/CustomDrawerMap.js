@@ -18,13 +18,19 @@ const CustomDrawerMap = (props ) => {
     const [itemSelect, setItemSelect] = useState(null);
     const [itemCatSelect, setItemCatSelect] = useState(null);
     const [category, setCategory] = useState([]);
+    const [apiAvailable, setApiAvailable] = useState(true);
 
     const navigation = useNavigation();
 
     const getCategory = async () => {
+      try {
         const response = await getCategorys();
         setCategory(response.data);
         setSubCategory(response.data[0].events[0].id);
+        setApiAvailable(true);
+      } catch (error) {
+        setApiAvailable(false); // atualiza a variável para indicar que a API está indisponível
+      }
     };
 
     useEffect(() => {
@@ -51,13 +57,18 @@ const CustomDrawerMap = (props ) => {
           <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: '#093D73', paddingTop: 40 }}>
             <Image style={styles.image} source={Logo} resizeMode="contain" />
             <View style={{ flex: 1, backgroundColor: '#6A8FA8', paddingTop: 20 }}>
+            {!apiAvailable && ( 
+        <View>
+          <Text style={styles.alertText}>Estamos indisponível no momento! Tente novamente mais tarde.</Text>
+        </View>
+      )}
               {category.map((cat) => (
                 <View key={cat.id}>
                   <DrawerItem
                     label={cat.title}
                     onPress={() => handleSubCategory(cat.id)}
                     style={{ marginLeft: 10 }}
-                    labelStyle={{ fontFamily: 'Rubik-Regular', fontSize: 16, color: '#E0E0E0' }}
+                    labelStyle={{ fontFamily: 'WorkSans-Regular', fontSize: 16, color: '#E0E0E0' }}
                     icon={({ focused, color, size }) => (
                       <Icon
                         name={
@@ -80,7 +91,7 @@ const CustomDrawerMap = (props ) => {
                           }}
                         style={{ marginLeft: 20 }}
                         labelStyle={{
-                          fontFamily: 'Rubik-Regular',
+                          fontFamily: 'WorkSans-Regular',
                           fontSize: 15,
                           color: itemSelect === event.title ? '#F8E257' : '#A0A0A0',
                         }}
@@ -100,8 +111,8 @@ const CustomDrawerMap = (props ) => {
             <View style={{ padding: 20, borderTopWidth: 1, borderColor: '#FFFFFF' }}>
                 <TouchableOpacity style={{ paddingVertical: 15 }} onPress={() => navigation.navigate("Drawer")}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        <Icon name={'keyboard-return'} size={25} color={'#EA0B41'} />
-                        <Text style={{color: '#EA0B41', fontFamily: 'Rubik-Regular', fontSize: 15, paddingLeft: 10 }}>Menu Principal</Text>
+                        <Icon name={'keyboard-return'} size={25} color={'#FFC72C'} />
+                        <Text style={{color: '#FFC72C', fontFamily: 'WorkSans-Regular', fontSize: 15, paddingLeft: 10 }}>Menu Principal</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -123,6 +134,14 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       left: 60,
       bottom: 15
+  },
+  alertText: {
+    fontSize: 20,
+    fontFamily: 'WorkSans-Bold',
+    color: 'red',
+    textAlign: 'center',
+    top: 30,
+    width: 250,
   },
 });
 

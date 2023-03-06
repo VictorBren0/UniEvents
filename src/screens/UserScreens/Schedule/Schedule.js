@@ -13,7 +13,7 @@ import Logo from '../../../assets/image/LOGO.png';
 
 const DATA = [
     {
-        name: 'COSPLAY',
+        name: 'EVENTO GEEK',
         page: 'AddCategory'
     },
     {
@@ -44,6 +44,7 @@ export default function Schedule({ navigation }) {
                                     navigation.navigate('EventInfo');
                                 }}
                                 style={styles.card}>
+                                    <Icon name={'chevron-right'} size={30} color={'#093D73'} style={{paddingLeft: 10}} />
                                 <Text style={styles.textCard}>{item.name}</Text>
                             </TouchableOpacity>
                         </View>
@@ -67,23 +68,22 @@ const styles = StyleSheet.create({
         height: "15%"
     },
     card: {
-        width: 285,
+        width: 355,
         height: 74,
-        borderRadius: 10,
-        flexDirection: 'row',
-        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#2E5887'
-    },
-    textCard: {
-        fontFamily: 'Rubik-One',
-        fontSize: 16,
-        color: '#FFFFFF',
-        paddingLeft: 20,
-        paddingRight: 20
-    },
+        borderRadius: 10,
+        backgroundColor: '#FFFFFF',
+        flexDirection: 'row'
+      },
+      textCard: {
+        fontFamily: 'WorkSans-Bold',
+        fontSize: 18,
+        color: '#093D73',
+        maxWidth: 320,
+        textAlign: 'center'
+      },
     text:{
-        fontFamily: 'Rubik-One',
+        fontFamily: 'WorkSans-Regular',
         fontSize: 20,
         color: '#FFFFFF',
         textAlign: 'center'
