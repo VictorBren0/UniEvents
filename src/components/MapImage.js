@@ -19,7 +19,7 @@ export default function MapImage({ selectedItem }) {
       }}
     >
       <Image
-        source={{ uri: `http://192.168.100.8:3000/uploads/${selectedItem}` }}
+        source={{ uri: `http://152.67.35.21:3000/uploads/${selectedItem}` }}
         style={styles.image}
         resizeMode='contain'
         transform={[{ scale: zoomFactor }]}

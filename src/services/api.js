@@ -2,7 +2,7 @@ import axios from 'axios';
 
 
 const api = axios.create({
-  baseURL: `http://192.168.100.8:3000/`,
+  baseURL: `http://152.67.35.21:3000/`,
 });
 
 export const getMaps = async () => {
