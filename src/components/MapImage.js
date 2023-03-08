@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { PinchGestureHandler, State, PanGestureHandler } from 'react-native-gesture-handler';
 
@@ -37,6 +37,12 @@ export default function MapImage({ selectedItem }) {
   const handlePanEnd = () => {
     setOffsetX(0);
   };
+
+  useEffect(() => {
+    // resetar as escalas quando o selectedItem mudar
+    setBaseScale(1);
+    setPinchScale(1);
+  }, [selectedItem]);
 
   return (
     <PanGestureHandler
