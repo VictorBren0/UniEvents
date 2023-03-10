@@ -3,15 +3,20 @@ import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollVi
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CustomButton from '../../../components/CustomButton';
+import { useRoute } from '@react-navigation/native';
 
 export default function EventInfo({ navigation }) {
+
+    const route = useRoute();
+    const data = route.params?.data;
+    console.log(data)
 
     return (
         <ScrollView>
             <SafeAreaView style={styles.container}>
                 <View style={{ paddingBottom: 40 }} />
                 <View>
-                    <Text style={styles.title}>Evento</Text>
+                    <Text style={styles.title}>{data.title}</Text>
                 </View>
 
                 <View style={{ paddingBottom: 20 }} />
