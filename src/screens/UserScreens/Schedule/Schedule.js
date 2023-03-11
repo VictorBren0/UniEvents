@@ -23,7 +23,6 @@ export default function Schedule({ navigation }) {
         const response = await getCategorys();
         setCategory(response.data);
     };
-
     useEffect(() => {
         getCategory();
     }, []);
@@ -47,7 +46,8 @@ export default function Schedule({ navigation }) {
                 {category.map((cat) => (
                     <View key={cat.id}>
                         <TouchableOpacity onPress={() => handleSubCategory(cat.id)} style={styles.card}>
-                            <Icon name={categorySelect === cat.id ? 'expand-more' : 'chevron-right'} size={35} color={'#093D73'} />
+                            <Icon name={categorySelect === cat.id ? 'expand-more' : 'chevron-right'} size={35} color={'#093D73'} 
+                            style={{ marginLeft: 10 }} />
                             <Text style={styles.textCard}>{cat.title}</Text>
                         </TouchableOpacity>
                         {categorySelect === cat.id &&
@@ -61,8 +61,8 @@ export default function Schedule({ navigation }) {
                                     }}
                                     style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 10 }}
                                 >
-                                    <Icon name="drag-indicator" size={25} color={itemSelect === event.title ? '#F8E257' : '#FFFFFF'} />
-                                    <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 20, color: itemSelect === event.title ? '#F8E257' : '#FFFFFF', paddingLeft: 10 }}>{event.title}</Text>
+                                    <Icon name="local-activity" size={25} color={itemSelect === event.title ? '#F8E257' : '#FFFFFF'} />
+                                    <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: itemSelect === event.title ? '#F8E257' : '#FFFFFF', paddingLeft: 10 }}>- {event.title}</Text>
                                 </TouchableOpacity>
                             ))}
                     </View>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     },
     card: {
         width: 355,
-        height: 74,
+        height: 70,
         alignItems: 'center',
         borderRadius: 10,
         backgroundColor: '#FFFFFF',
@@ -96,7 +96,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#093D73',
         maxWidth: 320,
-        textAlign: 'center'
+        textAlign: 'center',
+        marginLeft: 10
     },
     text: {
         fontFamily: 'WorkSans-Regular',
