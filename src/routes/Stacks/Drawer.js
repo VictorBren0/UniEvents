@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 //Drawer//
 import Home from '../../screens/UserScreens/Home';
 import Faq from '../../screens/UserScreens/Faq';
+import Notification from '../../screens/UserScreens/Notification';
+
 
 
 
@@ -46,7 +48,7 @@ export default function MyDrawer({ navigation }) {
       />
       <Drawer.Screen
         name="Notification"
-        component={Home}
+        component={Notification}
         options={{
           title: 'Notificações',
           drawerIcon: ({color}) => (

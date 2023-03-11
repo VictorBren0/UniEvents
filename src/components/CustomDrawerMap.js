@@ -50,7 +50,7 @@ const CustomDrawerMap = (props) => {
                 label={cat.title}
                 onPress={() => handleSubCategory(cat.id)}
                 style={{ marginLeft: 10 }}
-                labelStyle={{ fontFamily: 'WorkSans-Regular', fontSize: 16, color: '#E0E0E0' }}
+                labelStyle={{ fontFamily: 'WorkSans-Bold', fontSize: 16, color: '#E0E0E0' }}
                 icon={({ focused, color, size }) => (
                   <Icon
                     name={
