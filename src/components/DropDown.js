@@ -14,16 +14,20 @@ const Dropdown = (props) => {
         const selectedItem = props.items.find(item => item.id === itemId);
         setSelectedItem(selectedItem);
         toggleDropdown();
+
+        if (props.onSelect) {
+            props.onSelect(itemId);
+        }
     }
 
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.dropdownButton} onPress={toggleDropdown}>
                 <Text style={styles.dropdownButtonText}>{selectedItem ? selectedItem.title : 'Selecione um item:'}</Text>
-                <Icon name={isOpen ? 'arrow-drop-up' : 'arrow-drop-down'} size={30} color={'#FFFFFF'} />
+                <Icon name={isOpen ? 'arrow-drop-up' : 'arrow-drop-down'} size={30} color={'#093D73'} />
             </TouchableOpacity>
             {isOpen && (
-                <ScrollView style={styles.scrollView}>
+                <ScrollView style={styles.scrollView} nestedScrollEnabled={true}>
                     {props.items.map((item) => (
                         <TouchableOpacity key={item.id} onPress={() => handleSelect(item.id)}>
                             <View style={styles.drop}>
@@ -48,22 +52,23 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#515151',
+        backgroundColor: '#F0E6E6',
         padding: 10,
         borderRadius: 5,
         width: 340,
         borderWidth: 2,
-        borderColor: '#EFD741'
+        borderColor: '#FFC72C'
     },
     dropdownButtonText: {
         fontFamily: 'Rubik-Regular',
         fontSize: 16,
-        color: '#FFFFFF',
+        color: '#093D73',
     },
     scrollView: {
+        flexGrow: 1,
         maxHeight: 150,
-        width: 300,
-        backgroundColor: '#FFFFFF',
+        width: 340,
+        backgroundColor: '#F0E6E6',
     },
     drop: {
         paddingTop: 20,
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
     text: {
         fontFamily: 'Rubik-Regular',
         fontSize: 16,
-        color: '#111111',
+        color: '#093D73',
         bottom: 10
     },
 });

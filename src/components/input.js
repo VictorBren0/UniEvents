@@ -36,7 +36,7 @@ const Inputs = React.forwardRef((props, ref) => {
           <Icon
             name={props.iconName}
             size={25}
-            color={'#FFFFFF'}
+            color={'#111111'}
             style={styles.icon}
           />
         )}
@@ -48,7 +48,7 @@ const Inputs = React.forwardRef((props, ref) => {
           placeholderTextColor="#FFFFFF"
           style={[
             styles.input,
-            { borderColor: error ? '#E91E63' : '#EFD741' },
+            { borderColor: error ? '#E91E63' : '#FFC72C' },
             inputStyle,
             props.inputStyle,
           ]}
@@ -85,11 +85,11 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    backgroundColor: '#515151',
+    backgroundColor: '#F0E6E6',
     paddingLeft: 10,
     borderWidth: 2,
     borderRadius: 8,
-    color: '#FFFFFF',
+    color: '#111111',
     textAlignVertical: 'top',
   },
   icon: {
