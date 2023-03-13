@@ -21,6 +21,29 @@ export const getMaps = async () => {
     });
 };
 
+export const postCategorys = async (title) => {
+  try {
+    await api.post(`/categorys`, { title });
+  } catch (error) {
+    console.log(error)
+  }
+};
+export const putCategorys = async (id, title) => {
+  try {
+    await api.put(`/categorys/${id}`, { title });
+  } catch (error) {
+    console.log(error)
+  }
 
+};
+
+export const deleteCategorys = async (id) => {
+  try {
+    await api.delete(`/categorys/${id}`);
+  } catch (error) {
+    console.log(error)
+  }
+  
+};
 
 export default api;
