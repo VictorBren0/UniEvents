@@ -15,7 +15,7 @@ const DATA = [
     {
       name: 'EVENTOS',
       icon: 'article',
-      page: 'Category'
+      page: 'ConfigSchedule'
     },
     {
       name: 'MAPA',

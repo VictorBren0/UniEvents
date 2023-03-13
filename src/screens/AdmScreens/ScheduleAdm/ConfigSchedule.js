@@ -51,7 +51,7 @@ export default function ConfigSchedule({ navigation }) {
                     navigation.navigate(item.page);
                   }}
                   style={styles.card}>
-                  <Icon name={item.icon} size={30} color={'#EFD741'} />
+                  <Icon name={item.icon} size={30} color={'#F8E257'} />
                   <Text style={styles.textCard}>{item.name}</Text>
                 </TouchableOpacity>
                 </View>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 10,
-    backgroundColor: '#3D0128',
+    backgroundColor: '#093D73',
     alignItems: 'center',
     justifyContent: 'center'
   },
@@ -75,8 +75,7 @@ const styles = StyleSheet.create({
     width: 285,
     height: 74,
     borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#EFD741',
+    backgroundColor: '#2E5887',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'

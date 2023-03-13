@@ -42,7 +42,10 @@ export default function EventInfo({ navigation }) {
 
                     <View style={{ paddingBottom: 40 }} />
 
+
                 </View>
+
+                
 
                 <View style={{ paddingBottom: 20 }} />
 
