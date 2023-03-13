@@ -33,7 +33,7 @@ const Dropdown = (props) => {
                             <View style={styles.drop}>
                                 <Text style={styles.text}>{item.title}</Text>
                             </View>
-                        </TouchableOpacity>           
+                        </TouchableOpacity>
                     ))}
                 </ScrollView>
             )}
