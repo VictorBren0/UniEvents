@@ -1,15 +1,27 @@
 import React, { useState, createRef } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import Inputs from '../../../components/input';
 import CustomButton from '../../../components/CustomButton';
+import { postCategorys } from '../../../services/api';
+
 
 export default function AddCategory({ navigation }) {
 
     const [category, setCategory] = useState(null);
 
     const categoryInput = createRef();
+
+    const handlePost = async () => {
+        try {
+            await postCategorys(category);
+            alert('Categoria adicionada com sucesso');
+            navigation.goBack();
+        } catch (error) {
+            console.log(error);
+            alert('Erro ao adicionar a categoria');
+        }
+    }
 
 
     return (
@@ -31,9 +43,9 @@ export default function AddCategory({ navigation }) {
             <View style={{ paddingBottom: 200 }} />
             <CustomButton
                 text="Adicionar"
-                backgroundColor="#4CD640"
-                textColor="#FFFFFF"
-                onPress={() => navigation.navigate("ProfileEdit")}
+                backgroundColor="#F8E257"
+                textColor="#093D73"
+                onPress={handlePost}
                 style={{ marginBottom: 20 }}
             />
         </SafeAreaView>
@@ -45,14 +57,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: '#2C2626',
+        backgroundColor: '#FFFFFF',
         alignItems: 'center'
     },
     text: {
         alignItems: 'center',
         fontFamily: 'WorkSans-Regular',
         fontSize: 16,
-        color: '#FFFFFF',
+        color: '#093D73',
     },
     spaceText: {
         flexDirection: 'row',

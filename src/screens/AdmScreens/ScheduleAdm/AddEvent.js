@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollVi
 import Inputs from '../../../components/input';
 import Dropdown from '../../../components/DropDown'
 import CustomButton from '../../../components/CustomButton';
+import DateTime from '../../../components/DateTime';
 
 export default function AddEvent({ navigation }) {
 
@@ -39,97 +40,67 @@ export default function AddEvent({ navigation }) {
 
     return (
         <ScrollView>
-        <SafeAreaView style={styles.container}>
-            <View style={{ paddingBottom: 10 }} />
+            <SafeAreaView style={styles.container}>
+                <View style={{ paddingBottom: 10 }} />
 
-            <View style={styles.spaceText}>
-                <Text style={styles.text}>Selecione a Categoria:  </Text>
-            </View>
-            <Dropdown items={items} onSelect={handleSelectItem} />
-            <View style={styles.spaceText}>
-                <Text style={styles.text}>Nome do Evento:  </Text>
-            </View>
-            <Inputs
-                ref={eventInput}
-                autoCapitalize='none'
-                value={event}
-                iconName={''}
-                length={35}
-                autoCorrect={false}
-                onChangeText={text => setEvent(text)}
-            />
-            <View style={styles.spaceText}>
-                <Text style={styles.text}>Descrição do evento:  </Text>
-            </View>
-            <Inputs
-                ref={descriptionInput}
-                autoCapitalize='none'
-                value={description}
-                autoCorrect={false}
-                iconName={''}
-                length={230}
-                inputStyle={{ height: 150 }}
-                onChangeText={text => setDescription(text)}
-            />
-                        <View style={styles.spaceText}>
-                <Text style={styles.text}>Data de Inicio do Evento:  </Text>
-            </View>
-            <Inputs
-                ref={dataIInput}
-                autoCapitalize='none'
-                value={dataI}
-                autoCorrect={false}
-                iconName={''}
-                length={35}
-                onChangeText={text => setDataI(text)}
-            />
-                        <View style={styles.spaceText}>
-                <Text style={styles.text}>Data de Termino do Evento:  </Text>
-            </View>
-            <Inputs
-                ref={dataTInput}
-                autoCapitalize='none'
-                value={dataT}
-                autoCorrect={false}
-                iconName={''}
-                length={35}
-                onChangeText={text => setDataT(text)}
-            />
-                        <View style={styles.spaceText}>
-                <Text style={styles.text}>Hora de Inicio do Evento: </Text>
-            </View>
-            <Inputs
-                ref={horaIInput}
-                autoCapitalize='none'
-                value={horaI}
-                autoCorrect={false}
-                iconName={''}
-                length={35}
-                onChangeText={text => setHoraI(text)}
-            />
-                        <View style={styles.spaceText}>
-                <Text style={styles.text}>Hora de Termino do Evento:  </Text>
-            </View>
-            <Inputs
-                ref={horaTInput}
-                autoCapitalize='none'
-                value={horaT}
-                autoCorrect={false}
-                iconName={''}
-                length={35}
-                onChangeText={text => setHoraT(text)}
-            />
-            <View style={{ paddingBottom: 80 }} />
-            <CustomButton
-                text="Adicionar"
-                backgroundColor="#4CD640"
-                textColor="#FFFFFF"
-                onPress={() => navigation.navigate("ProfileEdit")}
-                style={{ marginBottom: 20 }}
-            />
-            <View style={{ paddingTop: 30 }} />
+                <View style={styles.spaceText}>
+                    <Text style={styles.text}>Selecione a Categoria:  </Text>
+                </View>
+                <Dropdown items={items} onSelect={handleSelectItem} />
+                <View style={styles.spaceText}>
+                    <Text style={styles.text}>Nome do Evento:  </Text>
+                </View>
+                <Inputs
+                    ref={eventInput}
+                    autoCapitalize='none'
+                    value={event}
+                    iconName={''}
+                    length={35}
+                    autoCorrect={false}
+                    onChangeText={text => setEvent(text)}
+                />
+                <View style={styles.spaceText}>
+                    <Text style={styles.text}>Descrição do evento:  </Text>
+                </View>
+                <Inputs
+                    ref={descriptionInput}
+                    autoCapitalize='none'
+                    value={description}
+                    autoCorrect={false}
+                    iconName={''}
+                    length={230}
+                    inputStyle={{ height: 150 }}
+                    onChangeText={text => setDescription(text)}
+                />
+                <View style={styles.spaceText}>
+                    <Text style={styles.text}>Data de Inicio do Evento:  </Text>
+                </View>
+                <DateTime 
+                    select="date"
+                    selectedDate />
+                <View style={styles.spaceText}>
+                    <Text style={styles.text}>Data de Termino do Evento:  </Text>
+                </View>
+                <DateTime 
+                    select="date"
+                    selectedDate />
+                <View style={styles.spaceText}>
+                    <Text style={styles.text}>Hora de Inicio do Evento: </Text>
+                </View>
+                <DateTime 
+                    select="time"
+                    selectedTime />
+                <View style={{ paddingBottom: 80 }} />
+                <CustomButton
+                    text="Adicionar"
+                    backgroundColor="#F8E257"
+                    textColor="#093D73"
+                    onPress={() => navigation.navigate("ProfileEdit")}
+                    style={{ marginBottom: 20 }}
+                />
+                <View style={{ paddingTop: 30 }} />
 
-        </SafeAreaView>
+            </SafeAreaView>
         </ScrollView>
     );
 };
@@ -139,14 +110,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: '#2C2626',
+        backgroundColor: '#FFFFFF',
         alignItems: 'center'
     },
     text: {
         alignItems: 'center',
         fontFamily: 'WorkSans-Regular',
         fontSize: 16,
-        color: '#FFFFFF',
+        color: '#093D73',
     },
     spaceText: {
         flexDirection: 'row',

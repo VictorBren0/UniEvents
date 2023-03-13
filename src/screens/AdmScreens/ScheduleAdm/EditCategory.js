@@ -1,69 +1,107 @@
-import React, { useState, createRef } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet } from 'react-native';
+import React, { useState, useEffect, createRef } from 'react';
+import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Inputs from '../../../components/input';
 import Dropdown from '../../../components/DropDown'
 import CustomButton from '../../../components/CustomButton';
+import { getCategorys, putCategorys, deleteCategorys } from '../../../services/api';
 
 export default function EditCategory({ navigation }) {
 
     const [category, setCategory] = useState(null);
-
+    const [newCategory, setNewCategory] = useState(null);
     const [selectedItemId, setSelectedItemId] = useState(null);
 
-    const handleSelectItem = (itemId) => {
-        setSelectedItemId(itemId);
+    const handleSelectItem = (id) => {
+        setSelectedItemId(id);
+        console.log(selectedItemId)
     }
 
-    const categoryInput = createRef();
-    const items = [
-        { id: '1', title: 'Item 1' },
-        { id: '2', title: 'Item 2' },
-        { id: '3', title: 'Item 3' },
-        { id: '4', title: 'Item 3' },
-        { id: '5', title: 'Item 3' },
-        { id: '6', title: 'Item 3' },
-        { id: '7', title: 'Item 3' },
-    ];
+    const getCategory = async () => {
+        const response = await getCategorys();
+        setCategory(response.data);
+    };
+
+    useEffect(() => {
+        getCategory();
+    }, []);
+
+    const newCategoryInput = createRef();
+
+    const handleSave = async () => {
+        if (!selectedItemId) {
+            alert('Selecione uma categoria');
+            return;
+        }
+        if (!newCategory) {
+            alert('Digite o novo nome da categoria');
+            return;
+        }
+        try {
+            await putCategorys(selectedItemId, newCategory);
+            alert('Categoria atualizada com sucesso');
+            navigation.goBack();
+        } catch (error) {
+            console.log(error);
+            alert('Erro ao atualizar a categoria');
+        }
+    }
+
+    const handleDelete = async () => {
+        if (!selectedItemId) {
+            alert('Selecione uma categoria');
+            return;
+        }
+        try {
+            await deleteCategorys(selectedItemId);
+            alert('Categoria removida com sucesso');
+            navigation.goBack();
+        } catch (error) {
+            console.log(error);
+            alert('Erro ao remover a categoria');
+        }
+    }
 
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={{ paddingBottom: 180 }} />
+        <ScrollView>
+            <SafeAreaView style={styles.container}>
+                <View style={{ paddingBottom: 180 }} />
 
-            <View style={styles.spaceText}>
-                <Text style={styles.text}>Selecione a Categoria:  </Text>
-            </View>
-            <Dropdown items={items} onSelect={handleSelectItem} />
-            <View style={styles.spaceText}>
-                <Text style={styles.text}>Novo Nome da Categoria:  </Text>
-            </View>
-            <Inputs
-                ref={categoryInput}
-                autoCapitalize='none'
-                value={category}
-                autoCorrect={false}
-                iconName={''}
-                length={35}
-                onChangeText={text => setCategory(text)}
-            />
-            <View style={{ paddingBottom: 150 }} />
-            <CustomButton
-                text="Salvar"
-                backgroundColor="#4CD640"
-                textColor="#FFFFFF"
-                onPress={() => navigation.navigate("ProfileEdit")}
-                style={{ marginBottom: 20 }}
-            />
-            <CustomButton
-                text="Remover"
-                backgroundColor="#C71717"
-                textColor="#FFFFFF"
-                onPress={() => navigation.navigate("ProfileEdit")}
-                style={{ marginBottom: 20 }}
-            />
+                <View style={styles.spaceText}>
+                    <Text style={styles.text}>Selecione a Categoria:  </Text>
+                </View>
+                <Dropdown items={category} onSelect={handleSelectItem} />
+                <View style={styles.spaceText}>
+                    <Text style={styles.text}>Novo Nome da Categoria:  </Text>
+                </View>
+                <Inputs
+                    ref={newCategoryInput}
+                    autoCapitalize='none'
+                    value={newCategory}
+                    autoCorrect={false}
+                    iconName={''}
+                    length={35}
+                    onChangeText={text => setNewCategory(text)}
+                />
+                <View style={{ paddingBottom: 150 }} />
+                <CustomButton
+                    text="Salvar"
+                    backgroundColor="#F8E257"
+                    textColor="#093D73"
+                    onPress={handleSave}
+                    style={{ marginBottom: 20 }}
+                />
+                <CustomButton
+                    text="Remover"
+                    backgroundColor="#F8E257"
+                    textColor="#093D73"
+                    onPress={handleDelete}
+                    style={{ marginBottom: 20 }}
+                />
 
-        </SafeAreaView>
+            </SafeAreaView>
+        </ScrollView>
     );
 };
 
@@ -72,14 +110,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: '#2C2626',
-        alignItems: 'center'
+        backgroundColor: '#FFFFFF',
+        alignItems: 'center',
     },
     text: {
         alignItems: 'center',
         fontFamily: 'WorkSans-Regular',
         fontSize: 16,
-        color: '#FFFFFF',
+        color: '#093D73',
     },
     spaceText: {
         flexDirection: 'row',

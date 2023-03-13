@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollVi
 import Inputs from '../../../components/input';
 import Dropdown from '../../../components/DropDown'
 import CustomButton from '../../../components/CustomButton';
+import DateTime from '../../../components/DateTime';
 
 export default function EditEvent({ navigation }) {
 
@@ -77,66 +78,36 @@ export default function EditEvent({ navigation }) {
                     inputStyle={{ height: 150 }}
                     onChangeText={text => setDescription(text)}
                 />
-                <View style={styles.spaceText}>
-                    <Text style={styles.text}>Nova Data de Inicio do Evento:  </Text>
+                              <View style={styles.spaceText}>
+                    <Text style={styles.text}>Data de Inicio do Evento:  </Text>
                 </View>
-                <Inputs
-                    ref={dataIInput}
-                    autoCapitalize='none'
-                    value={dataI}
-                    autoCorrect={false}
-                    iconName={''}
-                    length={35}
-                    onChangeText={text => setDataI(text)}
-                />
+                <DateTime 
+                    select="date"
+                    selectedDate />
                 <View style={styles.spaceText}>
-                    <Text style={styles.text}>Nova Data de Termino do Evento:  </Text>
+                    <Text style={styles.text}>Data de Termino do Evento:  </Text>
                 </View>
-                <Inputs
-                    ref={dataTInput}
-                    autoCapitalize='none'
-                    value={dataT}
-                    autoCorrect={false}
-                    iconName={''}
-                    length={35}
-                    onChangeText={text => setDataT(text)}
-                />
+                <DateTime 
+                    select="date"
+                    selectedDate />
                 <View style={styles.spaceText}>
-                    <Text style={styles.text}>Nova Hora de Inicio do Evento: </Text>
+                    <Text style={styles.text}>Hora de Inicio do Evento: </Text>
                 </View>
-                <Inputs
-                    ref={horaIInput}
-                    autoCapitalize='none'
-                    value={horaI}
-                    autoCorrect={false}
-                    iconName={''}
-                    length={35}
-                    onChangeText={text => setHoraI(text)}
-                />
-                <View style={styles.spaceText}>
-                    <Text style={styles.text}>Nova Hora de Termino do Evento:  </Text>
-                </View>
-                <Inputs
-                    ref={horaTInput}
-                    autoCapitalize='none'
-                    value={horaT}
-                    autoCorrect={false}
-                    iconName={''}
-                    length={35}
-                    onChangeText={text => setHoraT(text)}
-                />
+                <DateTime 
+                    select="time"
+                    selectedTime />
                 <View style={{ paddingBottom: 80 }} />
                 <CustomButton
                     text="Salvar"
-                    backgroundColor="#4CD640"
-                    textColor="#FFFFFF"
+                    backgroundColor="#F8E257"
+                    textColor="#093D73"
                     onPress={() => navigation.navigate("ProfileEdit")}
                     style={{ marginBottom: 20 }}
                 />
                 <CustomButton
                     text="Remover"
-                    backgroundColor="#C71717"
-                    textColor="#FFFFFF"
+                    backgroundColor="#F8E257"
+                    textColor="#093D73"
                     onPress={() => navigation.navigate("ProfileEdit")}
                     style={{ marginBottom: 20 }}
                 />
@@ -152,14 +123,14 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingHorizontal: 20,
-        backgroundColor: '#2C2626',
+        backgroundColor: '#FFFFFF',
         alignItems: 'center'
     },
     text: {
         alignItems: 'center',
         fontFamily: 'WorkSans-Regular',
         fontSize: 16,
-        color: '#FFFFFF',
+        color: '#093D73',
     },
     spaceText: {
         flexDirection: 'row',
