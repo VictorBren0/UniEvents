@@ -21,13 +21,6 @@ export const getMaps = async () => {
     });
 };
 
-export const getEvents = async () => {
-  return api.get(
-    `/events`,
-  ).catch(err => {
-    console.log(err);
-  });
-};
 
 export const postCategorys = async (title) => {
   try {
@@ -62,15 +55,15 @@ export const postEvent = async (id, title, description, date, time) => {
 
 export const putEvent = async (id, idevent, title, description, date, time) => {
   try {
-    await api.put(`/categorys/${id}/events${idevent}`, {title, description, date, time });
+    await api.put(`/categorys/${id}/events/${idevent}`, {title, description, date, time });
   } catch (error) {
     console.log(error)
   }
 };
 
-export const deleteEvets = async (id, idevent) => {
+export const deleteEvets = async (category, id) => {
   try {
-    await api.delete(`/categorys/${id}/events${idevent}`);
+    await api.delete(`/categorys/${category}/events`, { data: { id: Number(id) } });
   } catch (error) {
     console.log(error)
   }
