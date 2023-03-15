@@ -21,6 +21,14 @@ export const getMaps = async () => {
     });
 };
 
+export const getEvents = async () => {
+  return api.get(
+    `/events`,
+  ).catch(err => {
+    console.log(err);
+  });
+};
+
 export const postCategorys = async (title) => {
   try {
     await api.post(`/categorys`, { title });
@@ -34,7 +42,6 @@ export const putCategorys = async (id, title) => {
   } catch (error) {
     console.log(error)
   }
-
 };
 
 export const deleteCategorys = async (id) => {
@@ -43,7 +50,30 @@ export const deleteCategorys = async (id) => {
   } catch (error) {
     console.log(error)
   }
-  
+};
+
+export const postEvent = async (id, title, description, date, time) => {
+  try {
+    await api.post(`/categorys/${id}/events`, {title, description, date, time });
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+export const putEvent = async (id, idevent, title, description, date, time) => {
+  try {
+    await api.put(`/categorys/${id}/events${idevent}`, {title, description, date, time });
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+export const deleteEvets = async (id, idevent) => {
+  try {
+    await api.delete(`/categorys/${id}/events${idevent}`);
+  } catch (error) {
+    console.log(error)
+  }
 };
 
 export default api;
