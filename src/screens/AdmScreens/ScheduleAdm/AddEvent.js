@@ -1,42 +1,67 @@
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollView } from 'react-native';
 
 import Inputs from '../../../components/input';
 import Dropdown from '../../../components/DropDown'
 import CustomButton from '../../../components/CustomButton';
 import DateTime from '../../../components/DateTime';
+import { postEvent, getCategorys } from '../../../services/api';
 
 export default function AddEvent({ navigation }) {
 
     const [event, setEvent] = useState(null);
     const [description, setDescription] = useState(null);
-    const [dataI, setDataI] = useState(null);
-    const [dataT, setDataT] = useState(null);
-    const [horaI, setHoraI] = useState(null);
-    const [horaT, setHoraT] = useState(null);
-
+    const [date, setDate] = useState(null);
+    const [time, setTime] = useState(null);
+    const [category, setCategory] = useState(null);
     const [selectedItemId, setSelectedItemId] = useState(null);
+
+    const eventInput = createRef();
+    const descriptionInput = createRef();
+
+    useEffect(() => {
+        getCategory();
+    }, []);
 
     const handleSelectItem = (itemId) => {
         setSelectedItemId(itemId);
     }
 
-    const eventInput = createRef();
-    const descriptionInput = createRef();
-    const dataIInput = createRef();
-    const dataTInput = createRef();
-    const horaIInput = createRef();
-    const horaTInput = createRef();
+    const getCategory = async () => {
+        const response = await getCategorys();
+        setCategory(response.data);
+    };
 
-    const items = [
-        { id: '1', title: 'Item 1' },
-        { id: '2', title: 'Item 2' },
-        { id: '3', title: 'Item 3' },
-        { id: '4', title: 'Item 3' },
-        { id: '5', title: 'Item 3' },
-        { id: '6', title: 'Item 3' },
-        { id: '7', title: 'Item 3' },
-    ];
+    const handlePost = async () => {
+        if (!selectedItemId) {
+            alert('Selecione uma categoria');
+            return;
+        }
+        if (!event) {
+            alert('Digite o nome do evento');
+            return;
+        }
+        if (!description) {
+            alert('Digite a descrição');
+            return;
+        }
+        if (!date) {
+            alert('Escolha a data');
+            return;
+        }
+        if (!time) {
+            alert('Escolha o horario');
+            return;
+        }
+        try {
+            await postEvent(selectedItemId, event, description, date, time);
+            alert('Evento adicionado com sucesso');
+            navigation.goBack();
+        } catch (error) {
+            console.log(error);
+            alert('Erro ao adicionar o evento');
+        }
+    }
 
     return (
         <ScrollView>
@@ -46,7 +71,7 @@ export default function AddEvent({ navigation }) {
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Selecione a Categoria:  </Text>
                 </View>
-                <Dropdown items={items} onSelect={handleSelectItem} />
+                <Dropdown items={category} onSelect={handleSelectItem} />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Nome do Evento:  </Text>
                 </View>
@@ -57,7 +82,7 @@ export default function AddEvent({ navigation }) {
                     iconName={''}
                     length={35}
                     autoCorrect={false}
-                    onChangeText={text => setEvent(text)}
+                    onChangeText={setEvent}
                 />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Descrição do evento:  </Text>
@@ -70,32 +95,28 @@ export default function AddEvent({ navigation }) {
                     iconName={''}
                     length={230}
                     inputStyle={{ height: 150 }}
-                    onChangeText={text => setDescription(text)}
+                    onChangeText={setDescription}
                 />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Data de Inicio do Evento:  </Text>
                 </View>
                 <DateTime 
                     select="date"
-                    selectedDate />
-                <View style={styles.spaceText}>
-                    <Text style={styles.text}>Data de Termino do Evento:  </Text>
-                </View>
-                <DateTime 
-                    select="date"
-                    selectedDate />
+                    onChange={setDate} 
+                    />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Hora de Inicio do Evento: </Text>
                 </View>
                 <DateTime 
                     select="time"
-                    selectedTime />
+                    onChange={setTime} 
+                    />
                 <View style={{ paddingBottom: 80 }} />
                 <CustomButton
                     text="Adicionar"
                     backgroundColor="#F8E257"
                     textColor="#093D73"
-                    onPress={() => navigation.navigate("ProfileEdit")}
+                    onPress={handlePost}
                     style={{ marginBottom: 20 }}
                 />
                 <View style={{ paddingTop: 30 }} />

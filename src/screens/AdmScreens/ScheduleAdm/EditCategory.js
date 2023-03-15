@@ -15,7 +15,6 @@ export default function EditCategory({ navigation }) {
 
     const handleSelectItem = (id) => {
         setSelectedItemId(id);
-        console.log(selectedItemId)
     }
 
     const getCategory = async () => {
