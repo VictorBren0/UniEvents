@@ -5,7 +5,7 @@ import Inputs from '../../../components/input';
 import Dropdown from '../../../components/DropDown'
 import CustomButton from '../../../components/CustomButton';
 import DateTime from '../../../components/DateTime';
-import { postEvent, getCategorys, putEvent, deleteCategorys } from '../../../services/api';
+import { getCategorys, putEvent, deleteEvets } from '../../../services/api';
 
 export default function EditEvent({ navigation }) {
 
@@ -18,7 +18,7 @@ export default function EditEvent({ navigation }) {
     const [selectedItemId1, setSelectedItemId1] = useState(null);
     const [selectedItemId2, setSelectedItemId2] = useState(null);
 
-    
+
     const newEventInput = createRef();
     const descriptionInput = createRef();
 
@@ -30,10 +30,16 @@ export default function EditEvent({ navigation }) {
     useEffect(() => {
         getCategory();
     }, []);
+    
 
     const handleSelectItem1 = (itemId) => {
         setSelectedItemId1(itemId);
-    }
+        if (category && itemId) {
+          const selectedCategory = category.find((cat) => cat.id === itemId);
+          setEvent(selectedCategory.events);
+        }
+      };
+
     const handleSelectItem2 = (itemId) => {
         setSelectedItemId2(itemId);
     }
@@ -83,7 +89,7 @@ export default function EditEvent({ navigation }) {
             return;
         }
         try {
-            await deleteCategorys(selectedItemId1, selectedItemId2);
+            await deleteEvets(selectedItemId1, selectedItemId2);
             alert('Evento removido com sucesso');
             navigation.goBack();
         } catch (error) {
@@ -106,7 +112,7 @@ export default function EditEvent({ navigation }) {
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Selecione o Evento:  </Text>
                 </View>
-                <Dropdown items={event} onSelect={handleSelectItem2} />
+                <Dropdown items={event} onSelect={handleSelectItem2} disabled={!selectedItemId1} />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Novo Nome do Evento:  </Text>
                 </View>
@@ -133,16 +139,16 @@ export default function EditEvent({ navigation }) {
                     inputStyle={{ height: 150 }}
                     onChangeText={setDescription}
                 />
-                              <View style={styles.spaceText}>
+                <View style={styles.spaceText}>
                     <Text style={styles.text}>Data de Inicio do Evento:  </Text>
                 </View>
-                <DateTime 
+                <DateTime
                     select="date"
                     onChange={setDate} />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Hora de Inicio do Evento: </Text>
                 </View>
-                <DateTime 
+                <DateTime
                     select="time"
                     onChange={setTime} />
                 <View style={{ paddingBottom: 80 }} />
