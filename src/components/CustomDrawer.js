@@ -29,7 +29,7 @@ const CustomDrawer = (props) => {
                 <TouchableOpacity style={{ paddingVertical: 15 }} onPress={() => { }}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                         <Icon name={'logout'} size={22} color={'#EA0B41'} />
-                        <Text style={{color: '#EA0B41', fontFamily: 'WorkSans-Regular', fontSize: 15, paddingLeft: 10 }}>Sair da conta</Text>
+                        <Text style={{ color: '#EA0B41', fontFamily: 'WorkSans-Regular', fontSize: 15, paddingLeft: 10 }}>Sair da conta</Text>
                     </View>
                 </TouchableOpacity>
             </View>

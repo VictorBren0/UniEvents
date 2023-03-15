@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 20,
         backgroundColor: '#FFFFFF',
-        alignItems: 'center'
+        alignItems: 'center',
+        height: 800
     },
     text: {
         alignItems: 'center',
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
     },
     textContent: {
         fontFamily: 'WorkSans-Regular',
-        fontSize: 16,
+        fontSize: 18,
         color: '#093D73',
         top: 10
     },
