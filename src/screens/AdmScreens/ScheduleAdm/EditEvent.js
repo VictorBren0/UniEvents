@@ -1,42 +1,97 @@
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useEffect } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollView } from 'react-native';
 
 import Inputs from '../../../components/input';
 import Dropdown from '../../../components/DropDown'
 import CustomButton from '../../../components/CustomButton';
 import DateTime from '../../../components/DateTime';
+import { postEvent, getCategorys, putEvent, deleteCategorys } from '../../../services/api';
 
 export default function EditEvent({ navigation }) {
 
     const [event, setEvent] = useState(null);
+    const [category, setCategory] = useState(null);
+    const [newEvent, setNewEvent] = useState(null);
     const [description, setDescription] = useState(null);
-    const [dataI, setDataI] = useState(null);
-    const [dataT, setDataT] = useState(null);
-    const [horaI, setHoraI] = useState(null);
-    const [horaT, setHoraT] = useState(null);
+    const [date, setDate] = useState(null);
+    const [time, setTime] = useState(null);
+    const [selectedItemId1, setSelectedItemId1] = useState(null);
+    const [selectedItemId2, setSelectedItemId2] = useState(null);
 
-    const [selectedItemId, setSelectedItemId] = useState(null);
+    
+    const newEventInput = createRef();
+    const descriptionInput = createRef();
 
-    const handleSelectItem = (itemId) => {
-        setSelectedItemId(itemId);
+    const getCategory = async () => {
+        const response = await getCategorys();
+        setCategory(response.data);
+    };
+
+    useEffect(() => {
+        getCategory();
+    }, []);
+
+    const handleSelectItem1 = (itemId) => {
+        setSelectedItemId1(itemId);
+    }
+    const handleSelectItem2 = (itemId) => {
+        setSelectedItemId2(itemId);
     }
 
-    const eventInput = createRef();
-    const descriptionInput = createRef();
-    const dataIInput = createRef();
-    const dataTInput = createRef();
-    const horaIInput = createRef();
-    const horaTInput = createRef();
+    const handleSave = async () => {
+        if (!selectedItemId1) {
+            alert('Selecione uma categoria');
+            return;
+        }
+        if (!selectedItemId2) {
+            alert('Selecione um evento');
+            return;
+        }
+        if (!newEvent) {
+            alert('Digite o nome do novo do evento');
+            return;
+        }
+        if (!description) {
+            alert('Digite a nova descrição');
+            return;
+        }
+        if (!date) {
+            alert('Escolha a nova data');
+            return;
+        }
+        if (!time) {
+            alert('Escolha o novo horario');
+            return;
+        }
+        try {
+            await putEvent(selectedItemId1, selectedItemId2, newEvent, description, date, time);
+            alert('Evento adicionado com sucesso');
+            navigation.goBack();
+        } catch (error) {
+            console.log(error);
+            alert('Erro ao adicionar o evento');
+        }
+    }
 
-    const items = [
-        { id: '1', title: 'Item 1' },
-        { id: '2', title: 'Item 2' },
-        { id: '3', title: 'Item 3' },
-        { id: '4', title: 'Item 3' },
-        { id: '5', title: 'Item 3' },
-        { id: '6', title: 'Item 3' },
-        { id: '7', title: 'Item 3' },
-    ];
+    const handleDelete = async () => {
+        if (!selectedItemId1) {
+            alert('Selecione uma categoria');
+            return;
+        }
+        if (!selectedItemId2) {
+            alert('Selecione um evento');
+            return;
+        }
+        try {
+            await deleteCategorys(selectedItemId1, selectedItemId2);
+            alert('Evento removido com sucesso');
+            navigation.goBack();
+        } catch (error) {
+            console.log(error);
+            alert('Erro ao remover o evento');
+        }
+    }
+
 
     return (
         <ScrollView>
@@ -46,23 +101,23 @@ export default function EditEvent({ navigation }) {
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Selecione a Categoria:  </Text>
                 </View>
-                <Dropdown items={items} onSelect={handleSelectItem} />
+                <Dropdown items={category} onSelect={handleSelectItem1} />
 
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Selecione o Evento:  </Text>
                 </View>
-                <Dropdown items={items} onSelect={handleSelectItem} />
+                <Dropdown items={event} onSelect={handleSelectItem2} />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Novo Nome do Evento:  </Text>
                 </View>
                 <Inputs
-                    ref={eventInput}
+                    ref={newEventInput}
                     autoCapitalize='none'
-                    value={event}
+                    value={newEvent}
                     autoCorrect={false}
                     iconName={''}
                     length={35}
-                    onChangeText={text => setEvent(text)}
+                    onChangeText={setNewEvent}
                 />
 
                 <View style={styles.spaceText}>
@@ -76,39 +131,33 @@ export default function EditEvent({ navigation }) {
                     iconName={''}
                     length={230}
                     inputStyle={{ height: 150 }}
-                    onChangeText={text => setDescription(text)}
+                    onChangeText={setDescription}
                 />
                               <View style={styles.spaceText}>
                     <Text style={styles.text}>Data de Inicio do Evento:  </Text>
                 </View>
                 <DateTime 
                     select="date"
-                    selectedDate />
-                <View style={styles.spaceText}>
-                    <Text style={styles.text}>Data de Termino do Evento:  </Text>
-                </View>
-                <DateTime 
-                    select="date"
-                    selectedDate />
+                    onChange={setDate} />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Hora de Inicio do Evento: </Text>
                 </View>
                 <DateTime 
                     select="time"
-                    selectedTime />
+                    onChange={setTime} />
                 <View style={{ paddingBottom: 80 }} />
                 <CustomButton
                     text="Salvar"
                     backgroundColor="#F8E257"
                     textColor="#093D73"
-                    onPress={() => navigation.navigate("ProfileEdit")}
+                    onPress={handleSave}
                     style={{ marginBottom: 20 }}
                 />
                 <CustomButton
                     text="Remover"
                     backgroundColor="#F8E257"
                     textColor="#093D73"
-                    onPress={() => navigation.navigate("ProfileEdit")}
+                    onPress={handleDelete}
                     style={{ marginBottom: 20 }}
                 />
                 <View style={{ paddingTop: 30 }} />
