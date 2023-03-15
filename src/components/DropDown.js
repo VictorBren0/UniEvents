@@ -22,7 +22,7 @@ const Dropdown = (props) => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity style={styles.dropdownButton} onPress={toggleDropdown}>
+            <TouchableOpacity style={[styles.dropdownButton, props.disabled && styles.disabledButton]} onPress={toggleDropdown} disabled={props.disabled}>
                 <Text style={styles.dropdownButtonText}>{selectedItem ? selectedItem.title : 'Selecione um item:'}</Text>
                 <Icon name={isOpen ? 'arrow-drop-up' : 'arrow-drop-down'} size={30} color={'#093D73'} />
             </TouchableOpacity>
@@ -82,6 +82,9 @@ const styles = StyleSheet.create({
         color: '#093D73',
         bottom: 10
     },
+    disabledButton: {
+        opacity: 0.5,
+    }
 });
 
 export default Dropdown;
