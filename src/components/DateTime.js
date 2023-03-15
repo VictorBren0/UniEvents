@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const DateTime = ({ select }) => {
+const DateTime = ({ select, onChange }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
@@ -20,7 +20,9 @@ const DateTime = ({ select }) => {
 
   const handleDateConfirm = (date) => {
     hideDatePicker();
-    setSelectedDate(date.toLocaleDateString('pt-BR'));
+    const newDate = date.toLocaleDateString('pt-BR');
+    setSelectedDate(newDate);
+    onChange(newDate);
   };
 
   const showTimePicker = () => {
@@ -34,7 +36,9 @@ const DateTime = ({ select }) => {
 
   const handleTimeConfirm = (time) => {
     hideTimePicker();
-    setSelectedTime(time.toLocaleTimeString().slice(0, 5));
+    const newTime = time.toLocaleTimeString().slice(0, 5);
+    setSelectedTime(newTime);
+    onChange(newTime);
   };
 
   const handlePress = () => {
@@ -44,7 +48,7 @@ const DateTime = ({ select }) => {
 
   return (
     <View>
-      {select !== 'time' && (
+      {select === 'date' && (
         <TouchableOpacity style={styles.box} onPress={handlePress}>
           <Text style={styles.boxText}>{selectedDate}</Text>
           <Icon name={'event'} size={30} color={'#093D73'} />
@@ -57,7 +61,7 @@ const DateTime = ({ select }) => {
         </TouchableOpacity>
       )}
       <DateTimePickerModal
-        isVisible={isDatePickerVisible && select !== 'time'}
+        isVisible={isDatePickerVisible && select === 'date'}
         mode="date"
         onConfirm={handleDateConfirm}
         onCancel={hideDatePicker}
