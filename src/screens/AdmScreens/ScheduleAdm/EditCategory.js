@@ -10,6 +10,7 @@ import { getCategorys, putCategorys, deleteCategorys } from '../../../services/a
 export default function EditCategory({ navigation }) {
 
     const [category, setCategory] = useState(null);
+    const [event, setEvent] = useState(null);
     const [newCategory, setNewCategory] = useState(null);
     const [selectedItemId, setSelectedItemId] = useState(null);
 
@@ -21,6 +22,14 @@ export default function EditCategory({ navigation }) {
         const response = await getCategorys();
         setCategory(response.data);
     };
+
+    const getEvents = (itemId) => {
+        setSelectedItemId(itemId);
+        if (category && itemId) {
+          const categoryEvents = category.find((cat) => cat.id === itemId);
+          setEvent(categoryEvents.events);
+        }
+      };
 
     useEffect(() => {
         getCategory();
@@ -52,6 +61,10 @@ export default function EditCategory({ navigation }) {
             alert('Selecione uma categoria');
             return;
         }
+        if (getEvents.length > 0) {
+            alert('Existem eventos nessa categoria. Por favor, remova-os antes de excluir a categoria.');
+            return;
+          }
         try {
             await deleteCategorys(selectedItemId);
             alert('Categoria removida com sucesso');
