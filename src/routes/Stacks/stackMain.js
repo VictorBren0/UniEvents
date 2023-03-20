@@ -20,7 +20,8 @@ import AddEvent from '../../screens/AdmScreens/ScheduleAdm/AddEvent';
 import EditEvent from '../../screens/AdmScreens/ScheduleAdm/EditEvent';
 import Schedule from '../../screens/UserScreens/Schedule/Schedule';
 import EventInfo from '../../screens/UserScreens/Schedule/EventInfo';
-
+import ConfigMap from '../../screens/AdmScreens/MapAdm/ConfigMap';
+import EventMapAdd from '../../screens/AdmScreens/MapAdm/EventMapAdd';
 
 //Screens Users//
 
@@ -59,6 +60,10 @@ export default function Stack({navigation}) {
       <Screen name="EditCategory" component={EditCategory} options={{ headerShown: true, title: 'Editar Categoria' }}/>
       <Screen name="AddEvent" component={AddEvent} options={{ headerShown: true, title: 'Adicionar Evento' }}/>
       <Screen name="EditEvent" component={EditEvent} options={{ headerShown: true, title: 'Editar Evento' }}/>
+      <Screen name="ConfigMap" component={ConfigMap} options={{ headerShown: true, title: 'Configurar Mapa' }}/>
+      <Screen name="EventMapAdd" component={EventMapAdd} options={{ headerShown: true, title: 'Adicionar Evento no Mapa' }}/>
+
+
 
     </Navigator>
   );
