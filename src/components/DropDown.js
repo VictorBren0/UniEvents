@@ -23,7 +23,7 @@ const Dropdown = (props) => {
     return (
         <View style={styles.container}>
             <TouchableOpacity style={[styles.dropdownButton, props.disabled && styles.disabledButton]} onPress={toggleDropdown} disabled={props.disabled}>
-                <Text style={styles.dropdownButtonText}>{selectedItem ? selectedItem.title : 'Selecione um item:'}</Text>
+                <Text style={styles.dropdownButtonText}>{selectedItem ? selectedItem.title : 'Selecione um item:'}{selectedItem ? selectedItem.floor : ''}</Text>
                 <Icon name={isOpen ? 'arrow-drop-up' : 'arrow-drop-down'} size={30} color={'#093D73'} />
             </TouchableOpacity>
             {isOpen && (
@@ -31,7 +31,7 @@ const Dropdown = (props) => {
                     {props.items.map((item) => (
                         <TouchableOpacity key={item.id} onPress={() => handleSelect(item.id)}>
                             <View style={styles.drop}>
-                                <Text style={styles.text}>{item.title}</Text>
+                                <Text style={styles.text}>{item.title ? item.title : item.floor}</Text>
                             </View>
                         </TouchableOpacity>
                     ))}
