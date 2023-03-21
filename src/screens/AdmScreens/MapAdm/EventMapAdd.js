@@ -5,7 +5,7 @@ import Inputs from '../../../components/input';
 import Dropdown from '../../../components/DropDown'
 import CustomButton from '../../../components/CustomButton';
 import ClickImage from '../../../components/ClickImage';
-import { getCategorys, getMaps } from '../../../services/api';
+import { getCategorys, getMaps, postEventsMap } from '../../../services/api';
 
 export default function EventMapAdd({ navigation }) {
 
@@ -17,8 +17,8 @@ export default function EventMapAdd({ navigation }) {
     const [selectedItemId3, setSelectedItemId3] = useState(null);
     const [selectedItemFile, setSelectedItemFile] = useState(null);
     const [lastPosition, setLastPosition] = useState(null);
-    const [posY, setPosY] = useState(null);
-    const [posX, setPosX] = useState(null);
+    const [posy, setPosy] = useState(null);
+    const [posx, setPosx] = useState(null);
 
 
 
@@ -59,6 +59,13 @@ export default function EventMapAdd({ navigation }) {
         setSelectedItemFile(selectedItem ? selectedItem.file : null);
     }
 
+    const handlePositionSelected = (position) => {
+        setLastPosition(position);
+        setPosy(position.y)
+        setPosx(position.x)
+        console.log(posy, posx)
+    };
+
     const handleSave = async () => {
         if (!selectedItemId1) {
             alert('Selecione uma categoria');
@@ -68,56 +75,24 @@ export default function EventMapAdd({ navigation }) {
             alert('Selecione um evento');
             return;
         }
-        if (!newEvent) {
-            alert('Digite o nome do novo do evento');
+        if (!selectedItemId3) {
+            alert('Selecione um mapa');
             return;
         }
-        if (!description) {
-            alert('Digite a nova descrição');
-            return;
-        }
-        if (!date) {
-            alert('Escolha a nova data');
-            return;
-        }
-        if (!time) {
-            alert('Escolha o novo horario');
+        if (!lastPosition) {
+            alert('Selecione um local');
             return;
         }
         try {
-            await putEvent(selectedItemId1, selectedItemId2, newEvent, description, date, time);
-            alert('Evento adicionado com sucesso');
+            await postEventsMap(selectedItemId3, selectedItemId2, posy, posx);
+            alert('Evento adicionado com sucesso no mapa');
             navigation.goBack();
         } catch (error) {
             console.log(error);
-            alert('Erro ao adicionar o evento');
+            alert('Erro ao adicionar o evento  no mapa');
         }
     }
 
-    const handleDelete = async () => {
-        if (!selectedItemId1) {
-            alert('Selecione uma categoria');
-            return;
-        }
-        if (!selectedItemId2) {
-            alert('Selecione um evento');
-            return;
-        }
-        try {
-            await deleteEvets(selectedItemId1, selectedItemId2);
-            alert('Evento removido com sucesso');
-            navigation.goBack();
-        } catch (error) {
-            console.log(error);
-            alert('Erro ao remover o evento');
-        }
-    }
-
-    const handlePositionSelected = (position) => {
-        setLastPosition(position);
-        setPosY(position.y)
-        setPosX(position.x)
-    };
     return (
         <ScrollView>
             <SafeAreaView style={styles.container}>
