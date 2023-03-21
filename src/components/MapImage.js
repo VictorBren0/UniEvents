@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { PinchGestureHandler, State, PanGestureHandler } from 'react-native-gesture-handler';
 
 export default function MapImage({ selectedItem }) {
@@ -54,28 +55,35 @@ export default function MapImage({ selectedItem }) {
       }}
       avgTouches
     >
-      <PinchGestureHandler
-        onGestureEvent={handlePinch}
-        onHandlerStateChange={({ nativeEvent }) => {
-          if (nativeEvent.state === State.END) {
-            handlePinchEnd();
-          }
-        }}
-      >
-        <Image
-          source={{ uri: `http://152.67.35.21:3000/uploads/${selectedItem}` }}
-          style={[
-            styles.image,
-            {
-              transform: [
-                { scale: baseScale * pinchScale },
-                { translateX: offsetX },
-              ],
-            },
-          ]}
-          resizeMode='contain'
-        />
-      </PinchGestureHandler>
+      <View>
+  <PinchGestureHandler
+    onGestureEvent={handlePinch}
+    onHandlerStateChange={({ nativeEvent }) => {
+      if (nativeEvent.state === State.END) {
+        handlePinchEnd();
+      }
+    }}
+  >
+    <View>
+      <Image
+        source={{ uri: `http://152.67.35.21:3000/uploads/${selectedItem}` }}
+        style={[
+          styles.image,
+          {
+            transform: [
+              { scale: baseScale * pinchScale },
+              { translateX: offsetX },
+            ],
+          },
+        ]}
+        resizeMode='contain'
+      />
+      <View style={[styles.icon, { left: 284.7272644042969, top: 85.09091186523438 }]}>
+        <Icon name={'person'} size={20} color={'red'} />
+      </View>
+    </View>
+  </PinchGestureHandler>
+</View>
     </PanGestureHandler>
   );
 }
@@ -84,5 +92,8 @@ const styles = StyleSheet.create({
   image: {
     width: 360,
     height: 140,
+  },
+  icon: {
+    position: 'absolute',
   },
 });
