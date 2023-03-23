@@ -12,9 +12,11 @@ import {
 import { getMaps } from '../../services/api';
 import { useRoute } from '@react-navigation/native';
 import MapImage from '../../components/MapImage';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
-export default function Map({ navigation}) {
+
+export default function Map({ navigation }) {
 
   const route = useRoute();
   const data = route.params?.data;
@@ -24,6 +26,9 @@ export default function Map({ navigation}) {
   const [selectedId, setSelectedId] = useState(null);
   const [listMap, setListMap] = useState([]);
   const [apiAvailable, setApiAvailable] = useState(true);
+  const [posy, setPosy] = useState([]);
+  const [posx, setPosx] = useState([]);
+
 
 
   const getMap = async () => {
@@ -38,7 +43,7 @@ export default function Map({ navigation}) {
 
   useEffect(() => {
     getMap()
-  },[])
+  }, [])
 
   useEffect(() => {
     if (data && data.id !== selectedId) {
@@ -83,7 +88,7 @@ export default function Map({ navigation}) {
       />
       <View style={{ flex: 3 }}>
         {selectedId && (
-          <MapImage selectedItem={selectedItem} />
+          <MapImage selectedItem={selectedItem} selectedId={selectedId} />
         )}
       </View>
     </SafeAreaView>
