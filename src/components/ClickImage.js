@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+
 
 export default function ClickImage({ selectedItem, onPositionSelected }) {
   const [lastPosition, setLastPosition] = useState(null);
@@ -19,12 +21,13 @@ export default function ClickImage({ selectedItem, onPositionSelected }) {
         resizeMode='contain'
       />
       {lastPosition && (
-        <View
-          style={[
-            styles.dot,
-            { left: lastPosition.x - 5, top: lastPosition.y - 5 },
-          ]}
-        />
+        <Icon
+        name="location-on"
+        style={[
+          styles.icon,
+          { left: lastPosition.x - 5, top: lastPosition.y - 5 },
+        ]}
+      />
       )}
     </TouchableOpacity>
   );
@@ -35,11 +38,9 @@ const styles = StyleSheet.create({
     width: 360,
     height: 140,
   },
-  dot: {
+  icon: {
     position: 'absolute',
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: 'red',
+    fontSize: 20,
+    color: 'red',
   },
 });
