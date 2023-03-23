@@ -63,7 +63,6 @@ export default function EventMapAdd({ navigation }) {
         setLastPosition(position);
         setPosy(position.y)
         setPosx(position.x)
-        console.log(posy, posx)
     };
 
     const handleSave = async () => {
