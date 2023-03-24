@@ -22,6 +22,7 @@ import Schedule from '../../screens/UserScreens/Schedule/Schedule';
 import EventInfo from '../../screens/UserScreens/Schedule/EventInfo';
 import ConfigMap from '../../screens/AdmScreens/MapAdm/ConfigMap';
 import EventMapAdd from '../../screens/AdmScreens/MapAdm/EventMapAdd';
+import { Splash } from '../../screens/UserScreens/Splash';
 
 //Screens Users//
 
@@ -31,7 +32,7 @@ const {Navigator, Screen} = createNativeStackNavigator();
 
 export default function Stack({navigation}) {
   return (
-    <Navigator screenOptions={{ headerShown: false, 
+    <Navigator initialRouteName="Splash" screenOptions={{ headerShown: false, 
       headerStyle: {
       backgroundColor: '#093D73',
     },
@@ -41,6 +42,7 @@ export default function Stack({navigation}) {
       fontWeight: 'bold',
       fontSize: 22,
     }, }}>
+      <Screen name="Splash" component={Splash} />
       <Screen name="InitialScreen" component={InitialScreen} />
       <Screen name="Login" component={Login} options={{ headerShown: true, title: 'Login' }}/>
 
