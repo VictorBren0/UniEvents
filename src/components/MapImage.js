@@ -107,6 +107,7 @@ export default function MapImage({ selectedItem, selectedId }) {
                     { translateX: offsetX },
                   ],
                 }}>
+                  
                 <Icon
                   size={selected === event.id ? 25 : 20}
                   key={event.id}
@@ -114,20 +115,23 @@ export default function MapImage({ selectedItem, selectedId }) {
                   name={'person'}
                 />
                 {selected === event.id && (
+                  <View style={styles.balao2}>
                   <Text style={styles.text}>
                     {event.title}
                   </Text>
+                  <View style={styles.balao2_after} />
+                </View>
                 )}
 
               </TouchableOpacity>
-              
+
             ))}
-            
+
           </View>
         </PinchGestureHandler>
       </View>
     </PanGestureHandler>
-    
+
   );
 }
 
@@ -140,9 +144,37 @@ const styles = StyleSheet.create({
   icon: {
     position: 'absolute',
   },
+  balao2: {
+    backgroundColor: '#C5CEA0',
+    borderRadius: 15,
+    width: 150,
+    height: 50,
+    position: 'relative',
+    marginTop: 20,
+    right: "13%",
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
   text: {
-    color: 'red',
-    textAlign: 'center',
-    right: 20
-  }
+    color: '#fff',
+    fontSize: 14,
+    maxWidth: 200,
+    maxHeight: 70,
+    fontFamily: 'WorkSans-Regular',
+    textAlign: 'center'
+  },
+  balao2_after: {
+    content: "",
+    width: 0,
+    height: 0,
+    position: 'absolute',
+    borderLeftWidth: 20,
+    borderRightWidth: 20,
+    borderBottomWidth: 20,
+    borderLeftColor: 'transparent',
+    borderRightColor: 'transparent',
+    borderBottomColor: '#C5CEA0',
+    bottom: 50,
+    left: '10%',
+  },
 });
