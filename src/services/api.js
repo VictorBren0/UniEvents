@@ -77,4 +77,12 @@ export const postEventsMap = async (mapaid, id, posy, posx) => {
   }
 };
 
+export const deleteEvetsMaps = async (map, id) => {
+  try {
+    await api.delete(`/maps/${map}/events/${id}`);
+  } catch (error) {
+    console.log(error)
+  }
+};
+
 export default api;
