@@ -106,7 +106,9 @@ export default function MapImage({ selectedItem, selectedId }) {
                     { scale: baseScale * pinchScale },
                     { translateX: offsetX },
                   ],
-                }}>
+                }}
+                key={event.id}
+                >
                   
                 <Icon
                   size={selected === event.id ? 25 : 20}
@@ -115,11 +117,11 @@ export default function MapImage({ selectedItem, selectedId }) {
                   name={'person'}
                 />
                 {selected === event.id && (
-                  <View style={styles.balao2}>
+                  <View style={styles.balon}>
                   <Text style={styles.text}>
                     {event.title}
                   </Text>
-                  <View style={styles.balao2_after} />
+                  <View style={styles.balon_after} />
                 </View>
                 )}
 
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
   icon: {
     position: 'absolute',
   },
-  balao2: {
+  balon: {
     backgroundColor: '#C5CEA0',
     borderRadius: 15,
     width: 150,
@@ -163,8 +165,7 @@ const styles = StyleSheet.create({
     fontFamily: 'WorkSans-Regular',
     textAlign: 'center'
   },
-  balao2_after: {
-    content: "",
+  balon_after: {
     width: 0,
     height: 0,
     position: 'absolute',
