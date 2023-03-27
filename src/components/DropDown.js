@@ -28,13 +28,19 @@ const Dropdown = (props) => {
             </TouchableOpacity>
             {isOpen && (
                 <ScrollView style={styles.scrollView} nestedScrollEnabled={true}>
-                    {props.items.map((item) => (
-                        <TouchableOpacity key={item.id} onPress={() => handleSelect(item.id)}>
-                            <View style={styles.drop}>
-                                <Text style={styles.text}>{item.title ? item.title : item.floor}</Text>
-                            </View>
-                        </TouchableOpacity>
-                    ))}
+                    {props.items.length > 0 ? (
+                        props.items.map((item) => (
+                            <TouchableOpacity key={item.id} onPress={() => handleSelect(item.id)}>
+                                <View style={styles.drop}>
+                                    <Text style={styles.text}>{item.title ? item.title : item.floor}</Text>
+                                </View>
+                            </TouchableOpacity>
+                        ))
+                    ) : (
+                        <View style={styles.drop}>
+                            <Text style={styles.text}>Nenhum item disponível</Text>
+                        </View>
+                    )}
                 </ScrollView>
             )}
         </View>
