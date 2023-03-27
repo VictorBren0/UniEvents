@@ -24,7 +24,7 @@ const DATA = [
     {
       name: 'Editar Evento no Mapa',
       icon: 'add-circle',
-      page: 'AddEvent'
+      page: 'EventMapEdit'
     },
     {
       name: 'Editar Mapa',
