@@ -33,16 +33,7 @@ const {Navigator, Screen} = createNativeStackNavigator();
 
 export default function Stack({navigation}) {
   return (
-    <Navigator initialRouteName="Splash" screenOptions={{ headerShown: false, 
-      headerStyle: {
-      backgroundColor: '#093D73',
-    },
-    headerTintColor: '#FFFFFF',
-    headerTitleAlign: 'center',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-      fontSize: 22,
-    }, }}>
+    <Navigator initialRouteName="Splash" screenOptions={{ headerShown: false,}}>
       <Screen name="Splash" component={Splash} />
       <Screen name="InitialScreen" component={InitialScreen} />
       <Screen name="Login" component={Login} options={{ headerShown: true, title: 'Login' }}/>

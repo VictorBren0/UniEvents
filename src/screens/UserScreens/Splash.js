@@ -15,7 +15,7 @@ export function Splash({ navigation }) {
         index: 0,
         routes: [{ name: 'InitialScreen' }],
       });
-    }, 7000); // tempo em milissegundos
+    }, 3000); // tempo em milissegundos
   }, []);
 
   const startAnimation = () => {
@@ -59,7 +59,7 @@ export function Splash({ navigation }) {
         source={require('../../assets/json/loading.json')}
         autoPlay
         hardwareAccelerationAndroid={false}
-        speed={0.1}
+        speed={0.4}
         style={styles.animacao2}
       />
 
