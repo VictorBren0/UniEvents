@@ -24,7 +24,7 @@ export default function MyDrawer({ navigation }) {
     <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} screenOptions={{
       headerShown: false,
       drawerLabelStyle: {paddingRight: 25, fontFamily: 'WorkSans-Regular', fontSize: 16},
-      drawerActiveBackgroundColor: '#F8E257',
+      drawerActiveBackgroundColor: '#FFFFFF',
       drawerActiveTintColor: '#093D73',
       drawerInactiveTintColor: '#FFFFFF',
     }}>

@@ -40,10 +40,10 @@ const CustomDrawerMap = (props) => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#6A8FA8' }}>
-      <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: '#093D73', paddingTop: 40 }}>
+    <View style={{ flex: 1, backgroundColor: '#093D73' }}>
+      <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: '#FFFFFF', paddingTop: 40 }}>
         <Image style={styles.image} source={Logo} resizeMode="contain" />
-        <View style={{ flex: 1, backgroundColor: '#6A8FA8', paddingTop: 20 }}>
+        <View style={{ flex: 1, backgroundColor: '#093D73', paddingTop: 20 }}>
           {category.map((cat) => (
             <View key={cat.id}>
               <DrawerItem
@@ -90,11 +90,11 @@ const CustomDrawerMap = (props) => {
           ))}
         </View>
       </DrawerContentScrollView>
-      <View style={{ padding: 20, borderTopWidth: 1, borderColor: '#FFFFFF' }}>
+      <View style={{ padding: 20, borderTopWidth: 1, backgroundColor: '#FFFFFF' }}>
         <TouchableOpacity style={{ paddingVertical: 15 }} onPress={() => navigation.navigate("Drawer")}>
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Icon name={'keyboard-return'} size={25} color={'#FFC72C'} />
-            <Text style={{ color: '#FFC72C', fontFamily: 'WorkSans-Regular', fontSize: 15, paddingLeft: 10 }}>Menu Principal</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#093D73', justifyContent: 'center', borderRadius: 15, padding: 5 }}>
+            <Icon name={'keyboard-return'} size={25} color={'#093D73'} />
+            <Text style={{ color: '#093D73', fontFamily: 'WorkSans-Bold', fontSize: 15, paddingLeft: 10 }}>Menu Principal</Text>
           </View>
         </TouchableOpacity>
       </View>

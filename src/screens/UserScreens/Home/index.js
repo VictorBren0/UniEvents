@@ -77,6 +77,9 @@ export default function Home({ navigation }) {
           );
         }}
       />
+      <View>
+        <Text style={styles.textCard}>V.1.0</Text>
+      </View>
         <View style={styles.separator2} />
     </SafeAreaView>
   );
@@ -129,13 +132,14 @@ const styles = StyleSheet.create({
   },
   contentCard: {
     width: 150,
-    height: 150,
+    height: 120,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,
     backgroundColor: '#093D73',
     borderWidth: 1,
     borderColor: '#FFFFFF',
+    elevation: 5
   },
   textCard: {
     fontFamily: 'WorkSans-Bold',
@@ -147,7 +151,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     width: '80%',
     backgroundColor: '#FFFFFF',
-    marginBottom: 20,
+    marginBottom: 50,
   },
 
 

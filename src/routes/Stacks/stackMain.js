@@ -18,8 +18,8 @@ import AddCategory from '../../screens/AdmScreens/ScheduleAdm/AddCategory';
 import EditCategory from '../../screens/AdmScreens/ScheduleAdm/EditCategory';
 import AddEvent from '../../screens/AdmScreens/ScheduleAdm/AddEvent';
 import EditEvent from '../../screens/AdmScreens/ScheduleAdm/EditEvent';
-import Schedule from '../../screens/UserScreens/Schedule/Schedule';
-import EventInfo from '../../screens/UserScreens/Schedule/EventInfo';
+import Schedule from '../../screens/UserScreens/Schedule/index.js';
+import EventInfo from '../../screens/UserScreens/EventInfo';
 import ConfigMap from '../../screens/AdmScreens/MapAdm/ConfigMap';
 import EventMapAdd from '../../screens/AdmScreens/MapAdm/EventMapAdd';
 import EventMapEdit from '../../screens/AdmScreens/MapAdm/EventMapEdit';
@@ -33,7 +33,7 @@ const {Navigator, Screen} = createNativeStackNavigator();
 
 export default function Stack({navigation}) {
   return (
-    <Navigator initialRouteName="Splash" screenOptions={{ headerShown: false,}}>
+    <Navigator initialRouteName="Splash" screenOptions={{ headerShown: false}}>
       <Screen name="Splash" component={Splash} />
       <Screen name="InitialScreen" component={InitialScreen} />
       <Screen name="Login" component={Login} options={{ headerShown: true, title: 'Login' }}/>
@@ -43,7 +43,7 @@ export default function Stack({navigation}) {
       <Screen name="DrawerMap" component={DrawerMap} />
 
       <Screen name="Home" component={Home} />
-      <Screen name="Schedule" component={Schedule} options={{ headerShown: true, title: 'Agenda' }}/>
+      <Screen name="Schedule" component={Schedule}/>
       <Screen name="EventInfo" component={EventInfo} options={{ headerShown: true, title: 'Informação do Evento' }}/>
 
 

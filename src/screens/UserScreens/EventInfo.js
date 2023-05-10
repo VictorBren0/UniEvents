@@ -1,7 +1,7 @@
 import React, { useState, createRef } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollView } from 'react-native';
 
-import CustomButton from '../../../components/CustomButton';
+import CustomButton from '../../components/CustomButton';
 import { useRoute } from '@react-navigation/native';
 
 export default function EventInfo({ navigation }) {

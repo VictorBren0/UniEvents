@@ -9,10 +9,12 @@ import {
   FlatList,
   Button
 } from 'react-native';
-import { getMaps } from '../../services/api';
+import { getMaps } from '../../../services/api';
 import { useRoute } from '@react-navigation/native';
-import MapImage from '../../components/MapImage';
+import MapImage from '../../../components/MapImage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Logo from '../../../assets/image/Nassau.png';
+
 
 
 
@@ -61,8 +63,16 @@ export default function Map({ navigation }) {
           <Text style={styles.alertText}>Estamos indisponível no momento! Tente novamente mais tarde.</Text>
         </View>
       )}
-      <View style={{ padding: 30 }}>
-        <Text style={styles.titleText}>
+
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.openDrawer()}>
+          <Icon name={'menu'} size={40} color={'#FFFFFF'} />
+        </TouchableOpacity>
+        <Text style={styles.textHeader}>Mapa</Text>
+      </View>
+
+      <View style={styles.contentTitle}>
+        <Text style={styles.textTitle}>
           Selecione o local desejado:
         </Text>
       </View>
@@ -70,7 +80,7 @@ export default function Map({ navigation }) {
       <FlatList
         data={listMap}
         horizontal
-        showsHorizontalScrollIndicator={false}
+        showsHorizontalScrollIndicator={true}
         keyExtractor={item => `${item.id}`}
         renderItem={({ item }) => (
           <TouchableOpacity
@@ -102,21 +112,49 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
+  header: {
+    width: '100%',
+    height: '18%',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: '#0C488B',
+    flexDirection: 'row',
+  },
+  textHeader: {
+    fontSize: 25,
+    fontFamily: 'WorkSans-Bold',
+    color: '#FFFFFF',
+    marginRight: 90
+  },
+  contentTitle: {
+    width: '70%',
+    height: '7%',
+    borderRadius: 15,
+    backgroundColor: '#0C488B',
+    alignItems: 'center',
+    justifyContent: 'center',
+    margin: 20,
+    elevation: 5
+  },
+  textTitle: {
+    fontSize: 16,
+    color: '#FFFFFF',
+  },
   button: {
-    width: 130,
+    width: 150,
     height: 55,
-    backgroundColor: '#C5CEA0',
+    marginLeft: 20,
     alignItems: 'center',
     justifyContent: 'center'
   },
   buttonText: {
-    fontSize: 16,
-    fontFamily: 'WorkSans-Regular',
+    fontSize: 18,
+    fontFamily: 'WorkSans-Bold',
     color: '#0C264F'
   },
   selectedButtonText: {
-    borderBottomWidth: 3,
-    borderBottomColor: '#0C264F',
+    borderBottomWidth: 2,
+    borderBottomColor: 'red',
   },
   titleText: {
     fontSize: 21,
