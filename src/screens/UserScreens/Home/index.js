@@ -70,7 +70,7 @@ export default function Home({ navigation }) {
                   navigation.navigate(item.page);
                 }}
                 style={styles.contentCard}>
-                <Icon name={item.icon} size={30} color={'#F8E257'} />
+                <Icon name={item.icon} size={30} color={'#FFFFFF'} />
                 <Text style={styles.textCard}>{item.name}</Text>
               </TouchableOpacity>
             </View>
