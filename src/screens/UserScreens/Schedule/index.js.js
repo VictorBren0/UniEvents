@@ -15,7 +15,6 @@ import { getCategorys } from '../../../services/api';
 
 export default function Schedule({ navigation }) {
 
-    const [itemSelect, setItemSelect] = useState(null);
     const [category, setCategory] = useState([]);
     const [categorySelect, setCategorySelect] = useState(null);
 
@@ -33,7 +32,6 @@ export default function Schedule({ navigation }) {
         } else {
             setCategorySelect(id);
         }
-        setItemSelect(null);
     };
     return (
         <SafeAreaView style={styles.container}>
@@ -55,24 +53,24 @@ export default function Schedule({ navigation }) {
             <ScrollView>
                 {category.map((cat) => (
                     <View key={cat.id}>
-                        <TouchableOpacity onPress={() => handleSubCategory(cat.id)} style={styles.card}>
-                            <Icon name={categorySelect === cat.id ? 'expand-more' : 'chevron-right'} size={35} color={'#093D73'}
+                        <TouchableOpacity onPress={() => handleSubCategory(cat.id)} style={[styles.card, {backgroundColor: categorySelect === cat.id ? '#093D73' : '#FFFFFF'}]}>
+                            <Icon name={categorySelect === cat.id ? 'expand-more' : 'chevron-right'} size={35} color={categorySelect === cat.id ? '#FFFFFF' : '#093D73'}
                                 style={{ marginLeft: 10 }} />
-                            <Text style={styles.textCard}>{cat.title}</Text>
+                            <Text style={[styles.textCard, {color: categorySelect === cat.id ? '#FFFFFF' : '#093D73'}]}>{cat.title}</Text>
                         </TouchableOpacity>
+                        
                         {categorySelect === cat.id &&
                             cat.events &&
                             cat.events.map((event) => (
                                 <TouchableOpacity
                                     key={event.id}
                                     onPress={() => {
-                                        setItemSelect(event.title);
                                         navigation.navigate('EventInfo', { data: event });
                                     }}
-                                    style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 10 }}
+                                    style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 10,  }}
                                 >
-                                    <Icon name="local-activity" size={25} color={itemSelect === event.title ? '#F8E257' : '#111'} />
-                                    <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: itemSelect === event.title ? '#F8E257' : '#111111', paddingLeft: 10 }}>- {event.title}</Text>
+                                    <Icon name="local-activity" size={25} color={'#093D73'} />
+                                    <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: '#093D73', paddingLeft: 10 }}>- {event.title}</Text>
                                 </TouchableOpacity>
                             ))}
                     </View>
