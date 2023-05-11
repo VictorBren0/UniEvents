@@ -14,6 +14,7 @@ import { useRoute } from '@react-navigation/native';
 import MapImage from '../../../components/MapImage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Logo from '../../../assets/image/Nassau.png';
+import CustomButton from '../../../components/CustomButton';
 
 
 
@@ -22,14 +23,12 @@ export default function Map({ navigation }) {
 
   const route = useRoute();
   const data = route.params?.data;
-  console.log(data)
 
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [listMap, setListMap] = useState([]);
   const [apiAvailable, setApiAvailable] = useState(true);
-  const [posy, setPosy] = useState([]);
-  const [posx, setPosx] = useState([]);
+  const [imageScale, setImageScale] = useState(1);
 
 
 
@@ -65,10 +64,20 @@ export default function Map({ navigation }) {
     const contentSize = event.nativeEvent.contentSize.width;
     const indicatorSize = (viewSize / contentSize) * viewSize;
     const indicatorPosition = (contentOffset / (contentSize - viewSize)) * (viewSize - indicatorSize);
-  
+
     indicatorRef.current.setNativeProps({ style: { left: indicatorPosition } });
   };
 
+  const MAX_SCALE_FACTOR = 2;
+  const MIN_SCALE_FACTOR = 0.5;
+
+  const handleZoomIn = () => {
+    setImageScale((prevScale) => Math.min(prevScale * 1.2, MAX_SCALE_FACTOR));
+  };
+
+  const handleZoomOut = () => {
+    setImageScale((prevScale) => Math.max(prevScale * 0.8, MIN_SCALE_FACTOR));
+  };
   return (
     <SafeAreaView style={styles.container}>
       {!apiAvailable && ( // verifica se a API está indisponível e exibe uma mensagem de alerta
@@ -89,41 +98,74 @@ export default function Map({ navigation }) {
           Selecione o local desejado:
         </Text>
       </View>
+      <View style={{ height: '10%' }}>
+        <FlatList
+          ref={scrollRef}
+          data={listMap}
+          horizontal
+          onScroll={handleScroll}
+          showsHorizontalScrollIndicator={true}
+          keyExtractor={(item) => `${item.id}`}
+          renderItem={({ item }) => (
+
+            <TouchableOpacity
+              style={styles.card}
+              onPress={() => {
+                setSelectedId(item.id);
+                setSelectedItem(item.file);
+              }}
+            >
+              <Text
+                style={[
+                  styles.cardText,
+                  item.id === selectedId ? styles.selectedButtonText : null,
+                ]}
+              >
+                {item.floor}
+              </Text>
+
+            </TouchableOpacity>
+
+          )}
+        />
+      </View>
       <View style={styles.scroll}>
         <View ref={indicatorRef} style={styles.scrollIndicator} />
       </View>
-      <FlatList
-        ref={scrollRef}
-        data={listMap}
-        horizontal
-        onScroll={handleScroll}
-        showsHorizontalScrollIndicator={false}
-        keyExtractor={(item) => `${item.id}`}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              setSelectedId(item.id);
-              setSelectedItem(item.file);
-            }}
-          >
-            <Text
-              style={[
-                styles.buttonText,
-                item.id === selectedId ? styles.selectedButtonText : null,
-              ]}
-            >
-              {item.floor}
-            </Text>
-
-          </TouchableOpacity>
-        )}
-      />
 
       <View style={{ flex: 3 }}>
         {selectedId && (
-          <MapImage selectedItem={selectedItem} selectedId={selectedId} />
+          <MapImage selectedItem={selectedItem} selectedId={selectedId} style={{ transform: [{ scale: imageScale }] }} />
         )}
+        {/*         {selectedId && (
+          <View style={styles.containerButtons}>
+            <Text style={styles.cardText}>Ampliar imagem</Text>
+            <View style={styles.contentButtons}>
+
+              <TouchableOpacity
+                style={styles.Button}
+                onPress={() => {
+                  console.log("Pressed zoom in button");
+                  handleZoomIn();
+                }}
+              >
+                <Icon name={'add'} size={30} color={'#0C264F'} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.Button}
+                onPress={() => {
+                  console.log("Pressed zoom out button");
+                  handleZoomOut();
+                }}
+              >
+                <Icon name={'remove'} size={30} color={'#0C264F'} />
+
+              </TouchableOpacity>
+            </View>
+          </View>
+        )} */}
+
+
       </View>
     </SafeAreaView>
   );
@@ -141,6 +183,7 @@ const styles = StyleSheet.create({
     height: 3,
     backgroundColor: '#0C264F',
     borderRadius: 20,
+    marginBottom: 100,
   },
   scrollIndicator: {
     width: '20%',
@@ -148,6 +191,7 @@ const styles = StyleSheet.create({
     bottom: 3,
     backgroundColor: '#0C488B',
     borderRadius: 20,
+
   },
   header: {
     width: '100%',
@@ -177,21 +221,22 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#FFFFFF',
   },
-  button: {
-    width: 150,
+  card: {
+    width: 170,
     height: 55,
-    marginLeft: 20,
+    marginLeft: 10,
     alignItems: 'center',
     justifyContent: 'center'
   },
-  buttonText: {
+  cardText: {
     fontSize: 18,
     fontFamily: 'WorkSans-Bold',
     color: '#0C264F'
   },
   selectedButtonText: {
-    borderBottomWidth: 2,
+    borderTopWidth: 2,
     borderBottomColor: 'red',
+    fontSize: 19,
   },
   titleText: {
     fontSize: 21,
@@ -205,4 +250,28 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     top: 300
   },
+  containerButtons: {
+    marginTop: 100,
+    height: '30%',
+    alignItems: 'center',
+
+  },
+  contentButtons: {
+    marginTop: 20,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  Button: {
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 20,
+    marginRight: 20,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: '#0C264F',
+  }
 });
