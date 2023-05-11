@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, Linking } from 'react-native';
-import Logo from '../../assets/image/LOGO.png';
+import Logo from '../../../assets/image/LOGO.png';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function Faq({ navigation }) {

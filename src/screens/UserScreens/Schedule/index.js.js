@@ -37,8 +37,8 @@ export default function Schedule({ navigation }) {
         <SafeAreaView style={styles.container}>
 
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.openDrawer()}>
-                    <Icon name={'menu'} size={40} color={'#FFFFFF'} />
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Icon name={'arrow-back'} size={40} color={'#FFFFFF'} />
                 </TouchableOpacity>
                 <Text style={styles.textHeader}>Agenda</Text>
             </View>
@@ -47,18 +47,24 @@ export default function Schedule({ navigation }) {
 
             <View style={styles.contentTitle}>
                 <Text style={styles.textTitle}>
-                Selecione o evento desejado
+                    Selecione o evento desejado
                 </Text>
             </View>
             <ScrollView>
+                {category.length === 0 &&
+                    <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: '#093D73', paddingTop: 10 }}>Nenhum evento disponível</Text>
+                }
                 {category.map((cat) => (
                     <View key={cat.id}>
-                        <TouchableOpacity onPress={() => handleSubCategory(cat.id)} style={[styles.card, {backgroundColor: categorySelect === cat.id ? '#093D73' : '#FFFFFF'}]}>
+                        <TouchableOpacity onPress={() => handleSubCategory(cat.id)} style={[styles.card, { backgroundColor: categorySelect === cat.id ? '#093D73' : '#FFFFFF' }]}>
                             <Icon name={categorySelect === cat.id ? 'expand-more' : 'chevron-right'} size={35} color={categorySelect === cat.id ? '#FFFFFF' : '#093D73'}
                                 style={{ marginLeft: 10 }} />
-                            <Text style={[styles.textCard, {color: categorySelect === cat.id ? '#FFFFFF' : '#093D73'}]}>{cat.title}</Text>
+                            <Text style={[styles.textCard, { color: categorySelect === cat.id ? '#FFFFFF' : '#093D73' }]}>{cat.title}</Text>
                         </TouchableOpacity>
-                        
+                        {categorySelect === cat.id &&
+                            cat.events.length === 0 &&
+                            <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: '#093D73', paddingTop: 10 }}>Nenhum evento disponível</Text>
+                            }
                         {categorySelect === cat.id &&
                             cat.events &&
                             cat.events.map((event) => (
@@ -67,7 +73,7 @@ export default function Schedule({ navigation }) {
                                     onPress={() => {
                                         navigation.navigate('EventInfo', { data: event });
                                     }}
-                                    style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 10,  }}
+                                    style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 10, }}
                                 >
                                     <Icon name="local-activity" size={25} color={'#093D73'} />
                                     <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: '#093D73', paddingLeft: 10 }}>- {event.title}</Text>

@@ -33,7 +33,16 @@ const {Navigator, Screen} = createNativeStackNavigator();
 
 export default function Stack({navigation}) {
   return (
-    <Navigator initialRouteName="Splash" screenOptions={{ headerShown: false}}>
+    <Navigator initialRouteName="Splash" screenOptions={{ headerShown: false, 
+      headerStyle: {
+      backgroundColor: '#093D73',
+    },
+    headerTintColor: '#FFFFFF',
+    headerTitleAlign: 'center',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontSize: 22,
+    }, }}>
       <Screen name="Splash" component={Splash} />
       <Screen name="InitialScreen" component={InitialScreen} />
       <Screen name="Login" component={Login} options={{ headerShown: true, title: 'Login' }}/>
@@ -44,7 +53,7 @@ export default function Stack({navigation}) {
 
       <Screen name="Home" component={Home} />
       <Screen name="Schedule" component={Schedule}/>
-      <Screen name="EventInfo" component={EventInfo} options={{ headerShown: true, title: 'Informação do Evento' }}/>
+      <Screen name="EventInfo" component={EventInfo}/>
 
 
 
