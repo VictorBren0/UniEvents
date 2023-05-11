@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Text,
   Image,
@@ -7,7 +7,7 @@ import {
   View,
   StyleSheet,
   FlatList,
-  Button
+  Button,
 } from 'react-native';
 import { getMaps } from '../../../services/api';
 import { useRoute } from '@react-navigation/native';
@@ -56,6 +56,19 @@ export default function Map({ navigation }) {
     }
   }, [data]);
 
+  const scrollRef = useRef(null); // cria uma referência para a lista horizontal
+  const indicatorRef = useRef(null); // cria uma referência para o indicador
+
+  const handleScroll = (event) => {
+    const contentOffset = event.nativeEvent.contentOffset.x;
+    const viewSize = event.nativeEvent.layoutMeasurement.width;
+    const contentSize = event.nativeEvent.contentSize.width;
+    const indicatorSize = (viewSize / contentSize) * viewSize;
+    const indicatorPosition = (contentOffset / (contentSize - viewSize)) * (viewSize - indicatorSize);
+  
+    indicatorRef.current.setNativeProps({ style: { left: indicatorPosition } });
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       {!apiAvailable && ( // verifica se a API está indisponível e exibe uma mensagem de alerta
@@ -76,12 +89,16 @@ export default function Map({ navigation }) {
           Selecione o local desejado:
         </Text>
       </View>
-
+      <View style={styles.scroll}>
+        <View ref={indicatorRef} style={styles.scrollIndicator} />
+      </View>
       <FlatList
+        ref={scrollRef}
         data={listMap}
         horizontal
-        showsHorizontalScrollIndicator={true}
-        keyExtractor={item => `${item.id}`}
+        onScroll={handleScroll}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={(item) => `${item.id}`}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.button}
@@ -90,12 +107,19 @@ export default function Map({ navigation }) {
               setSelectedItem(item.file);
             }}
           >
-            <Text style={[styles.buttonText, item.id === selectedId ? styles.selectedButtonText : null]}>
+            <Text
+              style={[
+                styles.buttonText,
+                item.id === selectedId ? styles.selectedButtonText : null,
+              ]}
+            >
               {item.floor}
             </Text>
+
           </TouchableOpacity>
         )}
       />
+
       <View style={{ flex: 3 }}>
         {selectedId && (
           <MapImage selectedItem={selectedItem} selectedId={selectedId} />
@@ -111,6 +135,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  scroll: {
+    width: '100%',
+    height: 3,
+    backgroundColor: '#0C264F',
+    borderRadius: 20,
+  },
+  scrollIndicator: {
+    width: '20%',
+    height: 10,
+    bottom: 3,
+    backgroundColor: '#0C488B',
+    borderRadius: 20,
   },
   header: {
     width: '100%',
