@@ -1,5 +1,5 @@
 import React, { useState, createRef } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollView, Linking} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import logo from '../../../assets/image/Nassau.png';
 
@@ -12,6 +12,13 @@ export default function EventInfo({ navigation }) {
 
     const route = useRoute();
     const data = route.params?.data;
+
+    const handleOpenInMaps = () => {
+        const location = 'Uninassau - Av. Augusto Franco, 2340 - Siqueira Campos, Aracaju - SE, 49075-470';
+        const url = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`;
+        Linking.openURL(url);
+      };
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -61,10 +68,10 @@ export default function EventInfo({ navigation }) {
 
                 <View style={{ paddingTop: 40, alignItems: 'center' }}>
                 <CustomButton
-                    text="Copiar endereço"
+                    text="Ver endereço"
                     backgroundColor="#0C488B"
                     textColor="#FFFFFF"
-                    onPress={() => navigation.navigate("DrawerMap")}
+                    onPress={handleOpenInMaps}
                     style={{ marginBottom: 20 }}
                 />
                 <CustomButton
