@@ -56,30 +56,37 @@ export default function Schedule({ navigation }) {
                 }
                 {category.map((cat) => (
                     <View key={cat.id}>
-                        <TouchableOpacity onPress={() => handleSubCategory(cat.id)} style={[styles.card, { backgroundColor: categorySelect === cat.id ? '#093D73' : '#FFFFFF' }]}>
+                        <TouchableOpacity onPress={() => handleSubCategory(cat.id)} style={[styles.card, { backgroundColor: categorySelect === cat.id ? '#093D73' : '#FFFFFF',  borderBottomEndRadius: categorySelect === cat.id ? 0 : 10, borderBottomStartRadius: categorySelect === cat.id ? 0 : 10 }]}>
                             <Icon name={categorySelect === cat.id ? 'expand-more' : 'chevron-right'} size={35} color={categorySelect === cat.id ? '#FFFFFF' : '#093D73'}
                                 style={{ marginLeft: 10 }} />
                             <Text style={[styles.textCard, { color: categorySelect === cat.id ? '#FFFFFF' : '#093D73' }]}>{cat.title}</Text>
                         </TouchableOpacity>
-                        {categorySelect === cat.id &&
-                            cat.events.length === 0 &&
-                            <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: '#093D73', paddingTop: 10 }}>Nenhum evento disponível</Text>
+                        
+                            {categorySelect === cat.id &&
+                            <View style={{ borderWidth: 1, borderColor: '#093D73', paddingBottom: 15 }}>
+                            
+                            {categorySelect === cat.id &&
+                                cat.events.length === 0 &&
+                                <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: '#093D73', paddingTop: 10 }}>Nenhum evento disponível</Text>
                             }
-                        {categorySelect === cat.id &&
-                            cat.events &&
-                            cat.events.map((event) => (
-                                <TouchableOpacity
-                                    key={event.id}
-                                    onPress={() => {
-                                        navigation.navigate('EventInfo', { data: event });
-                                    }}
-                                    style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 10, }}
-                                >
-                                    <Icon name="local-activity" size={25} color={'#093D73'} />
-                                    <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: '#093D73', paddingLeft: 10 }}>- {event.title}</Text>
-                                </TouchableOpacity>
-                            ))}
+                            {categorySelect === cat.id &&
+                                cat.events &&
+                                cat.events.map((event) => (
+                                    <TouchableOpacity
+                                        key={event.id}
+                                        onPress={() => {
+                                            navigation.navigate('EventInfo', { data: event });
+                                        }}
+                                        style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 20, marginTop: 10 }}
+                                    >
+                                        <Icon name="local-activity" size={25} color={'#093D73'} />
+                                        <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 24, color: '#093D73', paddingLeft: 10 }}>- {event.title}</Text>
+                                    </TouchableOpacity>
+                                ))}
+                        </View>
+                        }
                     </View>
+                
                 ))}
             </ScrollView>
         </SafeAreaView>
