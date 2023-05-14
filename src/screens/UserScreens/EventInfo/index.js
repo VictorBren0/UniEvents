@@ -6,11 +6,12 @@ import logo from '../../../assets/image/Nassau.png';
 
 import CustomButton from '../../../components/CustomButton';
 import { useRoute } from '@react-navigation/native';
-import { color } from 'react-native-reanimated';
+
 
 export default function EventInfo({ navigation }) {
 
     const route = useRoute();
+
     const data = route.params?.data;
 
     const handleOpenInMaps = () => {
@@ -78,7 +79,7 @@ export default function EventInfo({ navigation }) {
                     text="Ver Local no Mapa"
                     backgroundColor="#0C488B"
                     textColor="#FFFFFF"
-                    onPress={() => navigation.navigate("DrawerMap")}
+                    onPress={() =>  navigation.navigate('DrawerMap', {data: data.maps[0]})}
                     style={{ marginBottom: 20 }}
                 />
                 </View>

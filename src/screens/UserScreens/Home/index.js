@@ -36,6 +36,12 @@ const DATA = [
     icon: 'forum',
     page: 'Faq'
   },
+  {
+    id: '5',
+    name: 'teste',
+    icon: 'forum',
+    page: 'ConfigMap'
+  },
 ]
 
 

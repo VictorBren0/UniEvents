@@ -25,6 +25,8 @@ import EventMapAdd from '../../screens/AdmScreens/MapAdm/EventMapAdd';
 import EventMapEdit from '../../screens/AdmScreens/MapAdm/EventMapEdit';
 import { Splash } from '../../screens/UserScreens/Splash';
 
+
+
 //Screens Users//
 
 
@@ -66,6 +68,7 @@ export default function Stack({navigation}) {
       <Screen name="ConfigMap" component={ConfigMap} options={{ headerShown: true, title: 'Configurar Mapa' }}/>
       <Screen name="EventMapAdd" component={EventMapAdd} options={{ headerShown: true, title: 'Adicionar Evento no Mapa' }}/>
       <Screen name="EventMapEdit" component={EventMapEdit} options={{ headerShown: true, title: 'Editar Evento no Mapa' }}/>
+      
 
 
 

@@ -28,7 +28,7 @@ export default function Map({ navigation }) {
   const [selectedId, setSelectedId] = useState(null);
   const [listMap, setListMap] = useState([]);
   const [apiAvailable, setApiAvailable] = useState(true);
-  const [imageScale, setImageScale] = useState(1);
+
 
 
 
@@ -46,6 +46,13 @@ export default function Map({ navigation }) {
     getMap()
   }, [])
 
+  console.log(selectedId)
+  
+  const scrollToIndex = index => {
+      scrollRef.current.scrollToIndex({ animated: true, index });
+    }
+  
+
   useEffect(() => {
     if (data && data.id !== selectedId) {
       setSelectedId(data.id);
@@ -53,10 +60,13 @@ export default function Map({ navigation }) {
     if (data && data.file !== selectedItem) {
       setSelectedItem(data.file);
     }
-  }, [data]);
+    if (selectedId !== null) {
+      scrollToIndex(selectedId - 1);
+    }
+  }, [data, selectedId]);
 
-  const scrollRef = useRef(null); // cria uma referência para a lista horizontal
-  const indicatorRef = useRef(null); // cria uma referência para o indicador
+  const scrollRef = useRef(null);
+  const indicatorRef = useRef(null);
 
   const handleScroll = (event) => {
     const contentOffset = event.nativeEvent.contentOffset.x;
@@ -66,18 +76,9 @@ export default function Map({ navigation }) {
     const indicatorPosition = (contentOffset / (contentSize - viewSize)) * (viewSize - indicatorSize);
 
     indicatorRef.current.setNativeProps({ style: { left: indicatorPosition } });
+    
   };
 
-  const MAX_SCALE_FACTOR = 2;
-  const MIN_SCALE_FACTOR = 0.5;
-
-  const handleZoomIn = () => {
-    setImageScale((prevScale) => Math.min(prevScale * 1.2, MAX_SCALE_FACTOR));
-  };
-
-  const handleZoomOut = () => {
-    setImageScale((prevScale) => Math.max(prevScale * 0.8, MIN_SCALE_FACTOR));
-  };
   return (
     <SafeAreaView style={styles.container}>
       {!apiAvailable && ( // verifica se a API está indisponível e exibe uma mensagem de alerta
@@ -104,7 +105,7 @@ export default function Map({ navigation }) {
           data={listMap}
           horizontal
           onScroll={handleScroll}
-          showsHorizontalScrollIndicator={true}
+          showsHorizontalScrollIndicator={false}
           keyExtractor={(item) => `${item.id}`}
           renderItem={({ item }) => (
 
@@ -135,7 +136,7 @@ export default function Map({ navigation }) {
 
       <View style={{ flex: 3 }}>
         {selectedId && (
-          <MapImage selectedItem={selectedItem} selectedId={selectedId} style={{ transform: [{ scale: imageScale }] }} />
+          <MapImage selectedItem={selectedItem} selectedId={selectedId} />
         )}
         {/*         {selectedId && (
           <View style={styles.containerButtons}>

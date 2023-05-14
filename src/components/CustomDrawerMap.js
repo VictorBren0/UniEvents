@@ -11,15 +11,28 @@ import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navi
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getCategorys } from '../services/api';
 import { useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
+
 
 const CustomDrawerMap = (props) => {
 
   const [itemSelect, setItemSelect] = useState(null);
   const [category, setCategory] = useState([]);
   const [categorySelect, setCategorySelect] = useState(null);
+  const [data, setData] = useState([]);
 
-
+  const route = useRoute();
   const navigation = useNavigation();
+
+  const getData = async () => {
+    const response = await route.params?.data
+    setData(response);
+    navigation.navigate('Map', { data: data })
+  }
+
+  useEffect(() => {
+    getData();
+  }, [data, navigation]);
 
   const getCategory = async () => {
     const response = await getCategorys();
