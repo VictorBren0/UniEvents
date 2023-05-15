@@ -13,7 +13,7 @@ export function Splash({ navigation }) {
     setTimeout(() => {
       navigation.reset({
         index: 0,
-        routes: [{ name: 'InitialScreen' }],
+        routes: [{ name: 'Drawer' }],
       });
     }, 3000); // tempo em milissegundos
   }, []);
