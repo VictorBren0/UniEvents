@@ -13,7 +13,6 @@ import { getMaps } from '../../../services/api';
 import { useRoute } from '@react-navigation/native';
 import MapImage from '../../../components/MapImage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import Logo from '../../../assets/image/Nassau.png';
 import CustomButton from '../../../components/CustomButton';
 
 
@@ -27,31 +26,23 @@ export default function Map({ navigation }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [listMap, setListMap] = useState([]);
-  const [apiAvailable, setApiAvailable] = useState(true);
-
-
-
 
   const getMap = async () => {
-    try {
       const response = await getMaps();
       setListMap(response.data);
-      setApiAvailable(true); // atualiza a variável para indicar que a API está funcionando
-    } catch (error) {
-      setApiAvailable(false); // atualiza a variável para indicar que a API está indisponível
-    }
   };
 
   useEffect(() => {
     getMap()
   }, [])
-
-  console.log(selectedId)
   
-  const scrollToIndex = index => {
-      scrollRef.current.scrollToIndex({ animated: true, index });
+  useEffect(() => {
+    if (data) {
+      setSelectedId(data.id);
+      setSelectedItem(data.file);
+      route.params.data = null; // set the data parameter to null to avoid setting the state again
     }
-  
+  }, [data]);
 
   useEffect(() => {
     if (data && data.id !== selectedId) {
@@ -60,13 +51,21 @@ export default function Map({ navigation }) {
     if (data && data.file !== selectedItem) {
       setSelectedItem(data.file);
     }
-    if (selectedId !== null) {
-      scrollToIndex(selectedId - 1);
-    }
+    
   }, [data, selectedId]);
 
   const scrollRef = useRef(null);
   const indicatorRef = useRef(null);
+
+  useEffect(() => {
+    if (selectedId) {
+      const index = listMap.findIndex((item) => item.id === selectedId);
+      if (index >= 0) {
+        scrollRef.current.scrollToIndex({ index });
+      }
+    }
+  }, [selectedId]);
+  
 
   const handleScroll = (event) => {
     const contentOffset = event.nativeEvent.contentOffset.x;
@@ -75,18 +74,15 @@ export default function Map({ navigation }) {
     const indicatorSize = (viewSize / contentSize) * viewSize;
     const indicatorPosition = (contentOffset / (contentSize - viewSize)) * (viewSize - indicatorSize);
 
+
     indicatorRef.current.setNativeProps({ style: { left: indicatorPosition } });
+    
     
   };
 
+
   return (
     <SafeAreaView style={styles.container}>
-      {!apiAvailable && ( // verifica se a API está indisponível e exibe uma mensagem de alerta
-        <View>
-          <Text style={styles.alertText}>Estamos indisponível no momento! Tente novamente mais tarde.</Text>
-        </View>
-      )}
-
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Icon name={'menu'} size={40} color={'#FFFFFF'} />

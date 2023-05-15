@@ -3,7 +3,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //Screens//
 //ScreensInital//
-import InitialScreen from '../../screens/UserScreens/InitialScreen'
 import Login from '../../screens/UserScreens/Login'
 import Home from '../../screens/UserScreens/Home';
 import Drawer from './Drawer'
@@ -46,7 +45,6 @@ export default function Stack({navigation}) {
       fontSize: 22,
     }, }}>
       <Screen name="Splash" component={Splash} />
-      <Screen name="InitialScreen" component={InitialScreen} />
       <Screen name="Login" component={Login} options={{ headerShown: true, title: 'Login' }}/>
 
 

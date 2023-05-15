@@ -17,7 +17,7 @@ const DrawerMap = createDrawerNavigator();
 
 export default function MyDrawerMap({navigation}) {
   return (
-    <DrawerMap.Navigator drawerContent={props => <CustomDrawerMap {...props} />} screenOptions={{headerShown: false}}>
+    <DrawerMap.Navigator initialRouteName="Map" drawerContent={props => <CustomDrawerMap {...props} />} screenOptions={{headerShown: false}}>
       <DrawerMap.Screen
         name="Map"
         component={Map}

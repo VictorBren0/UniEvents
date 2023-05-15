@@ -7,7 +7,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Logo from '../assets/image/LOGO.png';
-import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
+import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { getCategorys } from '../services/api';
 import { useNavigation } from '@react-navigation/native';
@@ -16,7 +16,6 @@ import { useRoute } from '@react-navigation/native';
 
 const CustomDrawerMap = (props) => {
 
-  const [itemSelect, setItemSelect] = useState(null);
   const [category, setCategory] = useState([]);
   const [categorySelect, setCategorySelect] = useState(null);
   const [data, setData] = useState([]);
@@ -32,7 +31,7 @@ const CustomDrawerMap = (props) => {
 
   useEffect(() => {
     getData();
-  }, [data, navigation]);
+  }, [data]);
 
   const getCategory = async () => {
     const response = await getCategorys();
@@ -49,7 +48,6 @@ const CustomDrawerMap = (props) => {
     } else {
       setCategorySelect(id);
     }
-    setItemSelect(null);
   };
 
   return (
@@ -81,20 +79,19 @@ const CustomDrawerMap = (props) => {
                     key={event.id}
                     label={event.title}
                     onPress={() => {
-                      setItemSelect(event.title);
                       navigation.navigate('Map', { data: event.maps[0] });
                     }}
                     style={{ marginLeft: 20 }}
                     labelStyle={{
                       fontFamily: 'WorkSans-Regular',
                       fontSize: 15,
-                      color: itemSelect === event.title ? '#F8E257' : '#A0A0A0',
+                      color: '#A0A0A0',
                     }}
                     icon={({ focused, color, size }) => (
                       <Icon
                         name="drag-indicator"
                         size={size}
-                        color={itemSelect === event.title ? '#F8E257' : '#A0A0A0'}
+                        color={'#A0A0A0'}
                       />
                     )}
                   />
