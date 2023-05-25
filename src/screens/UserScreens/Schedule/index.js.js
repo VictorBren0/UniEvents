@@ -119,19 +119,17 @@ const styles = StyleSheet.create({
     contentTitle: {
         width: '70%',
         height: '7%',
-        borderRadius: 15,
-        backgroundColor: '#0C488B',
         alignItems: 'center',
         justifyContent: 'center',
         margin: 30,
-        elevation: 5
     },
     textTitle: {
         fontSize: 16,
-        color: '#FFFFFF',
+        color: '#000000',
+        fontFamily: 'WorkSans-Bold',
     },
     card: {
-        width: 355,
+        width: 335,
         height: 70,
         alignItems: 'center',
         borderRadius: 10,
@@ -153,6 +151,6 @@ const styles = StyleSheet.create({
         fontFamily: 'WorkSans-Regular',
         fontSize: 20,
         color: '#093D73',
-        textAlign: 'center'
+        textAlign: 'center',
     },
 });

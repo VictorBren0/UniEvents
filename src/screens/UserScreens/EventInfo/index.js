@@ -42,16 +42,16 @@ export default function EventInfo({ navigation }) {
 
                         <Icon name={'event-note'} size={40} color={'#000000'} />
                         <View>
-                            <Text style={styles.textContent}>DATA INÍCIO</Text>
-                            <Text style={styles.textButton}>{data.date}</Text>
+                            <Text style={styles.textButton}>DATA INÍCIO</Text>
+                            <Text style={styles.textContent}>{data.date}</Text>
                         </View>
                     </View>
 
                     <View style={styles.button}>
                         <Icon name={'timer'} size={40} color={'#000000'} />
                         <View>
-                            <Text style={styles.textContent}>HORA INICIO</Text>
-                            <Text style={styles.textButton}>{data.time}</Text>
+                            <Text style={styles.textButton}>HORA INICIO</Text>
+                            <Text style={styles.textContent}>{data.time}</Text>
                         </View>
                     </View>
                 </View>
@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
     contentEvent: {
         width: '100%',
         maxHeight: 120,
-        paddingHorizontal: 10,
+        paddingHorizontal: 20,
         marginTop: 20,
         alignItems: 'center',
     },

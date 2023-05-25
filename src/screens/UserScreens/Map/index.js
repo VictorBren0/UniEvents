@@ -28,14 +28,14 @@ export default function Map({ navigation }) {
   const [listMap, setListMap] = useState([]);
 
   const getMap = async () => {
-      const response = await getMaps();
-      setListMap(response.data);
+    const response = await getMaps();
+    setListMap(response.data);
   };
 
   useEffect(() => {
     getMap()
   }, [])
-  
+
   useEffect(() => {
     if (data) {
       setSelectedId(data.id);
@@ -51,7 +51,7 @@ export default function Map({ navigation }) {
     if (data && data.file !== selectedItem) {
       setSelectedItem(data.file);
     }
-    
+
   }, [data, selectedId]);
 
   const scrollRef = useRef(null);
@@ -65,7 +65,7 @@ export default function Map({ navigation }) {
       }
     }
   }, [selectedId]);
-  
+
 
   const handleScroll = (event) => {
     const contentOffset = event.nativeEvent.contentOffset.x;
@@ -76,8 +76,8 @@ export default function Map({ navigation }) {
 
 
     indicatorRef.current.setNativeProps({ style: { left: indicatorPosition } });
-    
-    
+
+
   };
 
 
@@ -127,7 +127,12 @@ export default function Map({ navigation }) {
         />
       </View>
       <View style={styles.scroll}>
-        <View ref={indicatorRef} style={styles.scrollIndicator} />
+        <View ref={indicatorRef} style={styles.scrollIndicator}>
+          <Text style={styles.textScroll}>{'<<'}</Text>
+          <View style={{ width: 14, height: 14, borderRadius: 50, backgroundColor: '#0C488B', top: 13 }}></View>
+          <Text style={styles.textScroll}>{'>>'}</Text>
+
+        </View>
       </View>
 
       <View style={{ flex: 3 }}>
@@ -183,12 +188,16 @@ const styles = StyleSheet.create({
     marginBottom: 100,
   },
   scrollIndicator: {
+    bottom: 18,
     width: '20%',
-    height: 10,
-    bottom: 3,
-    backgroundColor: '#0C488B',
-    borderRadius: 20,
-
+    height: 50,
+    flexDirection: 'row',
+  },
+  textScroll: {
+    fontFamily: 'WorkSans-Bold',
+    fontSize: 25,
+    color: '#0C488B',
+    letterSpacing: -4
   },
   header: {
     width: '100%',
@@ -207,16 +216,14 @@ const styles = StyleSheet.create({
   contentTitle: {
     width: '70%',
     height: '7%',
-    borderRadius: 15,
-    backgroundColor: '#0C488B',
     alignItems: 'center',
     justifyContent: 'center',
     margin: 20,
-    elevation: 5
   },
   textTitle: {
     fontSize: 16,
-    color: '#FFFFFF',
+    color: '#000000',
+    fontFamily: 'WorkSans-Bold',
   },
   card: {
     width: 170,
@@ -228,12 +235,14 @@ const styles = StyleSheet.create({
   cardText: {
     fontSize: 18,
     fontFamily: 'WorkSans-Bold',
-    color: '#0C264F'
+    color: '#0C264F',
+    opacity: 0.5,
   },
   selectedButtonText: {
     borderTopWidth: 2,
     borderBottomColor: 'red',
     fontSize: 19,
+    opacity: 1
   },
   titleText: {
     fontSize: 21,
