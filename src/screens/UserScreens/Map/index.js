@@ -249,8 +249,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   selectedButtonText: {
-    borderTopWidth: 2,
-    borderBottomColor: 'red',
+
     fontSize: 19,
     opacity: 1
   },
