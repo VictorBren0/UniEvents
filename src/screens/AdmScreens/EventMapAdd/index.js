@@ -4,12 +4,13 @@ import { View, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet, ScrollVi
 import Dropdown from '../../../components/DropDown'
 import CustomButton from '../../../components/CustomButton';
 import ClickImage from '../../../components/ClickImage';
-import { getCategorys, getMaps, postEventsMap, deleteEvetsMaps } from '../../../services/api';
+import { getCategorys, getMaps, postEventsMap } from '../../../services/api';
 
-export default function EventMapEdit({ navigation }) {
+export default function EventMapAdd({ navigation }) {
 
     const [event, setEvent] = useState(null);
     const [category, setCategory] = useState(null);
+    const [listMap, setListMap] = useState([]);
     const [selectedItemId1, setSelectedItemId1] = useState(null);
     const [selectedItemId2, setSelectedItemId2] = useState(null);
     const [selectedItemId3, setSelectedItemId3] = useState(null);
@@ -17,7 +18,8 @@ export default function EventMapEdit({ navigation }) {
     const [lastPosition, setLastPosition] = useState(null);
     const [posy, setPosy] = useState(null);
     const [posx, setPosx] = useState(null);
-    const [filteredMaps, setFilteredMaps] = useState([]);
+
+
 
     const getCategory = async () => {
         const response = await getCategorys();
@@ -26,9 +28,8 @@ export default function EventMapEdit({ navigation }) {
 
     const getMap = async () => {
         const response = await getMaps();
-        const mapsWithEvents = response.data.filter(map => map.events.some(event => event.id === selectedItemId2));
-        setFilteredMaps(mapsWithEvents);
-      };
+        setListMap(response.data);
+    };
 
     useEffect(() => {
         getCategory();
@@ -45,7 +46,6 @@ export default function EventMapEdit({ navigation }) {
             const selectedCategory = category.find((cat) => cat.id === itemId);
             setEvent(selectedCategory.events);
         }
-        
     };
 
     const handleSelectItem2 = (itemId) => {
@@ -54,7 +54,7 @@ export default function EventMapEdit({ navigation }) {
 
     const handleSelectItem3 = (itemId) => {
         setSelectedItemId3(itemId);
-        const selectedItem = filteredMaps.find((map) => map.id === itemId);
+        const selectedItem = listMap.find((map) => map.id === itemId);
         setSelectedItemFile(selectedItem ? selectedItem.file : null);
     }
 
@@ -91,25 +91,6 @@ export default function EventMapEdit({ navigation }) {
         }
     }
 
-    const handleDelete = async () => {
-        if (!selectedItemId3) {
-            alert('Selecione um mapa');
-            return;
-        }
-        if (!selectedItemId2) {
-            alert('Selecione um evento');
-            return;
-        }
-        try {
-            await deleteEvetsMaps(selectedItemId3, selectedItemId2);
-            alert('Evento removido do mapa com sucesso');
-            navigation.goBack();
-        } catch (error) {
-            console.log(error);
-            alert('Erro ao remover o evento do mapa');
-        }
-    }
-
     return (
         <ScrollView>
             <SafeAreaView style={styles.container}>
@@ -127,7 +108,7 @@ export default function EventMapEdit({ navigation }) {
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Selecione o Mapa:  </Text>
                 </View>
-                <Dropdown items={filteredMaps} onSelect={handleSelectItem3} disabled={!selectedItemId2} />
+                <Dropdown items={listMap} onSelect={handleSelectItem3} />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Clique no local para adicionar um evento:</Text>
                 </View>
@@ -136,17 +117,10 @@ export default function EventMapEdit({ navigation }) {
                 </View>
                 <View style={{ paddingBottom: 80 }} />
                 <CustomButton
-                    text="Salvar"
-                    backgroundColor="#F8E257"
-                    textColor="#093D73"
+                    text="Adicionar"
+                    backgroundColor="#093D73"
+                    textColor="#FFFFFF"
                     onPress={handleSave}
-                    style={{ marginBottom: 20 }}
-                />
-                <CustomButton
-                    text="Remover"
-                    backgroundColor="#F8E257"
-                    textColor="#093D73"
-                    onPress={handleDelete}
                     style={{ marginBottom: 20 }}
                 />
                 <View style={{ paddingTop: 30 }} />
@@ -169,6 +143,7 @@ const styles = StyleSheet.create({
         fontFamily: 'WorkSans-Regular',
         fontSize: 16,
         color: '#093D73',
+        left: 10
     },
     spaceText: {
         flexDirection: 'row',

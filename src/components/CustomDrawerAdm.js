@@ -13,13 +13,10 @@ import { useNavigation } from '@react-navigation/native';
 
 const CustomDrawer = (props) => {
     const navigation = useNavigation();
-
     return (
         <View style={{ flex: 1, backgroundColor: '#093D73' }}>
             <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: '#FFFFFF', paddingTop: 40 }}>
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
                 <Image style={styles.image} source={Logo} resizeMode="contain" />
-                </TouchableOpacity>
                 <View style={{ flex: 1, backgroundColor: '#093D73', paddingTop: 40 }}>
                     <View style={{paddingHorizontal: 15}}>
                     <DrawerItemList {...props} />
@@ -31,6 +28,12 @@ const CustomDrawer = (props) => {
                 <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#093D73', justifyContent: 'center', borderRadius: 15, padding: 10 }}>
                         <Icon name={'share'} size={22} color={'#093D73'} />
                         <Text style={{ fontFamily: 'WorkSans-Regular', fontSize: 15, paddingLeft: 10, color: '#093D73' }}>Compartilhe o APP</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ paddingVertical: 15 }} onPress={() => navigation.navigate('Drawer')}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', borderWidth: 1, borderColor: '#093D73', justifyContent: 'center', borderRadius: 15, padding: 10 }}>
+                        <Icon name={'logout'} size={22} color={'#093D73'} />
+                        <Text style={{ color: '#093D73', fontFamily: 'WorkSans-Regular', fontSize: 15, paddingLeft: 10 }}>Sair da conta</Text>
                     </View>
                 </TouchableOpacity>
             </View>

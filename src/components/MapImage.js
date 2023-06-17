@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Image, StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { Image, StyleSheet, View, TouchableOpacity, Text, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
 import { getMaps } from '../services/api';
+
+const windowWidth = Dimensions.get('window').width;
 
 export default function MapImage({ selectedItem, selectedId }) {
   const [offsetX, setOffsetX] = useState(0);
@@ -15,8 +17,8 @@ export default function MapImage({ selectedItem, selectedId }) {
   };
 
   useEffect(() => {
-    getMap()
-  }, [])
+    getMap();
+  }, []);
 
   const handlePress = (id) => {
     setSelected(id);
@@ -33,7 +35,7 @@ export default function MapImage({ selectedItem, selectedId }) {
   useEffect(() => {
     setSelected(null);
   }, [selectedItem]);
-  console.log(selected)
+
   return (
     <PanGestureHandler
       onGestureEvent={handlePan}
@@ -57,81 +59,73 @@ export default function MapImage({ selectedItem, selectedId }) {
           ]}
           resizeMode='contain'
         />
-        {listMap.find(item => item.id === selectedId)?.events?.map(event => (
+        {listMap.find((item) => item.id === selectedId)?.events?.map((event) => (
           <TouchableOpacity
             onPress={() => handlePress(event.id)}
-            style={{
-              position: 'absolute',
-              left: event.posx - 5,
-              top: event.posy - 5,
-              transform: [
-                { translateX: offsetX },
-              ],
-            }}
+            style={[
+              styles.eventContainer,
+              {
+                left: (event.posx / 360) * windowWidth - 5,
+                top: (event.posy / 360) * windowWidth - 5,
+                transform: [{ translateX: offsetX }],
+              },
+            ]}
             key={event.id}
           >
-            <Icon
-              size={selected === event.id ? 25 : 20}
-              key={event.id}
-              color={selected === event.id ? 'red' : 'black'}
-              name={'person'}
+            <View
+              style={[
+                styles.square,
+                {
+                  width: selected === event.id ? 16 : 14,
+                  height: selected === event.id ? 16 : 14,
+                  backgroundColor: selected === event.id ? 'red' : 'blue',
+                },
+              ]}
             />
             {selected === event.id && (
-              <View style={styles.balon}>
-                <Text style={styles.text}>
-                  {event.title}
-                  
-                </Text>
-                <View style={styles.balon_after} />
+              <View style={styles.balloon}>
+                <Text style={styles.text}>{event.title}</Text>
               </View>
             )}
           </TouchableOpacity>
-          
         ))}
       </View>
     </PanGestureHandler>
   );
 }
 
-
 const styles = StyleSheet.create({
   image: {
-    width: 360,
-    height: 140,
+    width: '100%',
+    height: undefined,
+    aspectRatio: 360 / 140,
   },
-  icon: {
+  eventContainer: {
     position: 'absolute',
   },
-  balon: {
-    backgroundColor: '#C5CEA0',
+  square: {
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: '#000000',
+  },
+  balloon: {
+    backgroundColor: '#FFFFFF',
     borderRadius: 15,
     width: 150,
     height: 50,
-    position: 'relative',
+    position: 'absolute',
     marginTop: 20,
-    right: "13%",
+    right: '13%',
     paddingHorizontal: 15,
     paddingVertical: 10,
+    elevation: 5,
   },
   text: {
-    color: '#fff',
-    fontSize: 14,
-    maxWidth: 200,
+    color: '#000000',
+    fontSize: 15,
+    maxWidth: '100%',
     maxHeight: 70,
     fontFamily: 'WorkSans-Regular',
-    textAlign: 'center'
-  },
-  balon_after: {
-    width: 0,
-    height: 0,
-    position: 'absolute',
-    borderLeftWidth: 20,
-    borderRightWidth: 20,
-    borderBottomWidth: 20,
-    borderLeftColor: 'transparent',
-    borderRightColor: 'transparent',
-    borderBottomColor: '#C5CEA0',
-    bottom: 50,
-    left: '10%',
+    textAlign: 'center',
   },
 });

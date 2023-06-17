@@ -9,39 +9,23 @@ import {
   FlatList,
 } from 'react-native';
 import Logo from '../../../assets/image/Nassau.png';
+import Ad from '../../../assets/image/Anuncio.png';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const DATA = [
   {
     id: '1',
-    name: 'EVENTOS',
-    icon: 'article',
-    page: 'ConfigSchedule'
-  },
-  {
-    id: '2',
     name: 'MAPA',
     icon: 'map',
     page: 'DrawerMap'
   },
   {
-    id: '3',
+    id: '2',
     name: 'AGENDA',
     icon: 'event',
     page: 'Schedule'
   },
-  {
-    id: '4',
-    name: 'FAQ',
-    icon: 'forum',
-    page: 'Faq'
-  },
-  {
-    id: '5',
-    name: 'teste',
-    icon: 'forum',
-    page: 'ConfigMap'
-  },
+
 ]
 
 
@@ -83,10 +67,13 @@ export default function Home({ navigation }) {
           );
         }}
       />
+      <Image style={styles.Ad} source={Ad} resizeMode="contain" />
+      <View style={styles.separator2} />
       <View>
-        <Text style={styles.textCard}>V.1.0</Text>
+      <View style={styles.separator2} />
+        <Text style={[styles.textCard, {fontSize: 13, marginBottom: 20}]}>V.1.3</Text>
       </View>
-        <View style={styles.separator2} />
+        
     </SafeAreaView>
   );
 }
@@ -157,8 +144,12 @@ const styles = StyleSheet.create({
     opacity: 0.5,
     width: '80%',
     backgroundColor: '#FFFFFF',
-    marginBottom: 50,
+
   },
+  Ad: {
+    width: 344,
+    height: 157,
+  }
 
 
 });

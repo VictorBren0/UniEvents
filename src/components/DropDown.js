@@ -58,12 +58,13 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#F0E6E6',
+        backgroundColor: '#FFFFFF',
         padding: 10,
-        borderRadius: 5,
-        width: 340,
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        width: 330,
         borderWidth: 2,
-        borderColor: '#FFC72C'
+        borderColor: '#000000'
     },
     dropdownButtonText: {
         fontFamily: 'Rubik-Regular',
@@ -73,8 +74,11 @@ const styles = StyleSheet.create({
     scrollView: {
         flexGrow: 1,
         maxHeight: 150,
-        width: 340,
-        backgroundColor: '#F0E6E6',
+        width: 330,
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderBottomEndRadius: 5,
+        borderBottomLeftRadius: 5,
     },
     drop: {
         paddingTop: 20,

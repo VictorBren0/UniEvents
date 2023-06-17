@@ -45,10 +45,10 @@ const Inputs = React.forwardRef((props, ref) => {
           onChangeText={props.onChangeText}
           ref={inputRef}
           underlineColorAndroid="transparent"
-          placeholderTextColor="#FFFFFF"
+          placeholderTextColor="#000000"
           style={[
             styles.input,
-            { borderColor: error ? '#E91E63' : '#FFC72C' },
+            { borderColor: error ? '#E91E63' : '#000000' },
             inputStyle,
             props.inputStyle,
           ]}
@@ -64,7 +64,7 @@ const Inputs = React.forwardRef((props, ref) => {
           <Icon
             name={sec ? 'eye' : 'eye-off'}
             size={26}
-            color={error ? '#E91E63' : '#7b8794'}
+            color={error ? '#E91E63' : '#ffffff'}
             style={styles.iconSecret}
           />
         </TouchableOpacity>
@@ -85,10 +85,10 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    backgroundColor: '#F0E6E6',
+    backgroundColor: '#FFFFFF',
     paddingLeft: 10,
     borderWidth: 2,
-    borderRadius: 8,
+    borderRadius: 10,
     color: '#111111',
     textAlignVertical: 'top',
   },

@@ -43,8 +43,8 @@ export default function AddCategory({ navigation }) {
             <View style={{ paddingBottom: 200 }} />
             <CustomButton
                 text="Adicionar"
-                backgroundColor="#F8E257"
-                textColor="#093D73"
+                backgroundColor="#093D73"
+                textColor="#FFFFFF"
                 onPress={handlePost}
                 style={{ marginBottom: 20 }}
             />
@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
         fontFamily: 'WorkSans-Regular',
         fontSize: 16,
         color: '#093D73',
+        left: 10,
     },
     spaceText: {
         flexDirection: 'row',

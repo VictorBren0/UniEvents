@@ -14,6 +14,7 @@ import { useRoute } from '@react-navigation/native';
 import MapImage from '../../../components/MapImage';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CustomButton from '../../../components/CustomButton';
+import { set } from 'immer/dist/internal';
 
 
 
@@ -26,10 +27,12 @@ export default function Map({ navigation }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [listMap, setListMap] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getMap = async () => {
     const response = await getMaps();
     setListMap(response.data);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -37,12 +40,19 @@ export default function Map({ navigation }) {
   }, [])
 
   useEffect(() => {
+    if (isLoading) {
+      return; // Se ainda estiver carregando, não execute o código dentro do useEffect
+    }
+  
     if (data) {
       setSelectedId(data.id);
       setSelectedItem(data.file);
-      route.params.data = null; // set the data parameter to null to avoid setting the state again
+      route.params.data = null; // definir o parâmetro data como nulo para evitar definir o estado novamente
+    } else {
+      setSelectedId(1);
+      setSelectedItem(listMap[0]?.file);
     }
-  }, [data]);
+  }, [isLoading]);
 
   useEffect(() => {
     if (data && data.id !== selectedId) {

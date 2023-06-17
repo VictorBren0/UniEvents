@@ -84,12 +84,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#F0E6E6',
+        backgroundColor: '#FFFFFF',
         padding: 10,
         borderRadius: 5,
-        width: 350,
+        width: 330,
         borderWidth: 2,
-        borderColor: '#FFC72C'
+        borderColor: '#000000'
     },
     boxText: {
         fontFamily: 'Rubik-Regular',

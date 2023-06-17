@@ -59,11 +59,11 @@ export default function Schedule({ navigation }) {
                         <TouchableOpacity onPress={() => handleSubCategory(cat.id)} style={[styles.card, { backgroundColor: categorySelect === cat.id ? '#093D73' : '#FFFFFF',  borderBottomEndRadius: categorySelect === cat.id ? 0 : 10, borderBottomStartRadius: categorySelect === cat.id ? 0 : 10 }]}>
                             <Icon name={categorySelect === cat.id ? 'expand-more' : 'chevron-right'} size={35} color={categorySelect === cat.id ? '#FFFFFF' : '#093D73'}
                                 style={{ marginLeft: 10 }} />
-                            <Text style={[styles.textCard, { color: categorySelect === cat.id ? '#FFFFFF' : '#093D73' }]}>{cat.title}</Text>
+                            <Text style={[styles.textCard, { color: categorySelect === cat.id ? '#EAE8E8' : '#093D73' }]}>{cat.title}</Text>
                         </TouchableOpacity>
                         
                             {categorySelect === cat.id &&
-                            <View style={{ borderWidth: 1, borderColor: '#093D73', paddingBottom: 15 }}>
+                            <View style={{ borderWidth: 1, borderColor: '#093D73', paddingBottom: 15, borderBottomEndRadius: 10, borderBottomLeftRadius: 10 }}>
                             
                             {categorySelect === cat.id &&
                                 cat.events.length === 0 &&

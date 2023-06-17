@@ -12,16 +12,17 @@ import DrawerMap from './DrawerMap';
 
 
 //Screens ADM//
-import ConfigSchedule from '../../screens/AdmScreens/ScheduleAdm/ConfigSchedule';
-import AddCategory from '../../screens/AdmScreens/ScheduleAdm/AddCategory';
-import EditCategory from '../../screens/AdmScreens/ScheduleAdm/EditCategory';
-import AddEvent from '../../screens/AdmScreens/ScheduleAdm/AddEvent';
-import EditEvent from '../../screens/AdmScreens/ScheduleAdm/EditEvent';
+import ConfigSchedule from '../../screens/AdmScreens/ConfigSchedule';
+import AddCategory from '../../screens/AdmScreens/AddCategory';
+import EditCategory from '../../screens/AdmScreens/EditCategory';
+import AddEvent from '../../screens/AdmScreens/AddEvent';
+import EditEvent from '../../screens/AdmScreens/EditEvent';
 import Schedule from '../../screens/UserScreens/Schedule/index.js';
 import EventInfo from '../../screens/UserScreens/EventInfo';
-import ConfigMap from '../../screens/AdmScreens/MapAdm/ConfigMap';
-import EventMapAdd from '../../screens/AdmScreens/MapAdm/EventMapAdd';
-import EventMapEdit from '../../screens/AdmScreens/MapAdm/EventMapEdit';
+import ConfigMap from '../../screens/AdmScreens/ConfigMap';
+import EventMapAdd from '../../screens/AdmScreens/EventMapAdd';
+import EventMapEdit from '../../screens/AdmScreens/EventMapEdit';
+import DrawerAdmin from './DrawerAdm';
 import { Splash } from '../../screens/UserScreens/Splash';
 
 
@@ -45,7 +46,7 @@ export default function Stack({navigation}) {
       fontSize: 22,
     }, }}>
       <Screen name="Splash" component={Splash} />
-      <Screen name="Login" component={Login} options={{ headerShown: true, title: 'Login' }}/>
+      <Screen name="Login" component={Login} />
 
 
       <Screen name="Drawer" component={Drawer} />
@@ -57,7 +58,7 @@ export default function Stack({navigation}) {
 
 
 
-
+      <Screen name="DrawerAdmin" component={DrawerAdmin} />
       <Screen name="ConfigSchedule" component={ConfigSchedule} options={{ headerShown: true, title: 'Configurar Agenda' }}/>
       <Screen name="AddCategory" component={AddCategory} options={{ headerShown: true, title: 'Adicionar Categoria' }}/>
       <Screen name="EditCategory" component={EditCategory} options={{ headerShown: true, title: 'Editar Categoria' }}/>

@@ -5,72 +5,56 @@ import Inputs from '../../../components/input';
 import Dropdown from '../../../components/DropDown'
 import CustomButton from '../../../components/CustomButton';
 import DateTime from '../../../components/DateTime';
-import { getCategorys, putEvent, deleteEvets } from '../../../services/api';
+import { postEvent, getCategorys } from '../../../services/api';
 
-export default function EditEvent({ navigation }) {
+export default function AddEvent({ navigation }) {
 
     const [event, setEvent] = useState(null);
-    const [category, setCategory] = useState(null);
-    const [newEvent, setNewEvent] = useState(null);
     const [description, setDescription] = useState(null);
     const [date, setDate] = useState(null);
     const [time, setTime] = useState(null);
-    const [selectedItemId1, setSelectedItemId1] = useState(null);
-    const [selectedItemId2, setSelectedItemId2] = useState(null);
+    const [category, setCategory] = useState(null);
+    const [selectedItemId, setSelectedItemId] = useState(null);
 
-
-    const newEventInput = createRef();
+    const eventInput = createRef();
     const descriptionInput = createRef();
+
+    useEffect(() => {
+        getCategory();
+    }, []);
+
+    const handleSelectItem = (itemId) => {
+        setSelectedItemId(itemId);
+    }
 
     const getCategory = async () => {
         const response = await getCategorys();
         setCategory(response.data);
     };
 
-    useEffect(() => {
-        getCategory();
-    }, []);
-    
-
-    const handleSelectItem1 = (itemId) => {
-        setSelectedItemId1(itemId);
-        if (category && itemId) {
-          const selectedCategory = category.find((cat) => cat.id === itemId);
-          setEvent(selectedCategory.events);
-        }
-      };
-
-    const handleSelectItem2 = (itemId) => {
-        setSelectedItemId2(itemId);
-    }
-
-    const handleSave = async () => {
-        if (!selectedItemId1) {
+    const handlePost = async () => {
+        if (!selectedItemId) {
             alert('Selecione uma categoria');
             return;
         }
-        if (!selectedItemId2) {
-            alert('Selecione um evento');
-            return;
-        }
-        if (!newEvent) {
-            alert('Digite o nome do novo do evento');
+        if (!event) {
+            alert('Digite o nome do evento');
             return;
         }
         if (!description) {
-            alert('Digite a nova descrição');
+            alert('Digite a descrição');
             return;
         }
         if (!date) {
-            alert('Escolha a nova data');
+            alert('Escolha a data');
             return;
         }
         if (!time) {
-            alert('Escolha o novo horario');
+            alert('Escolha o horario');
             return;
         }
         try {
-            await putEvent(selectedItemId1, selectedItemId2, newEvent, description, date, time);
+            await postEvent(selectedItemId, event, description, date, time);
             alert('Evento adicionado com sucesso');
             navigation.goBack();
         } catch (error) {
@@ -78,26 +62,6 @@ export default function EditEvent({ navigation }) {
             alert('Erro ao adicionar o evento');
         }
     }
-
-    const handleDelete = async () => {
-        if (!selectedItemId1) {
-            alert('Selecione uma categoria');
-            return;
-        }
-        if (!selectedItemId2) {
-            alert('Selecione um evento');
-            return;
-        }
-        try {
-            await deleteEvets(selectedItemId1, selectedItemId2);
-            alert('Evento removido com sucesso');
-            navigation.goBack();
-        } catch (error) {
-            console.log(error);
-            alert('Erro ao remover o evento');
-        }
-    }
-
 
     return (
         <ScrollView>
@@ -107,27 +71,21 @@ export default function EditEvent({ navigation }) {
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Selecione a Categoria:  </Text>
                 </View>
-                <Dropdown items={category} onSelect={handleSelectItem1} />
-
+                <Dropdown items={category} onSelect={handleSelectItem} />
                 <View style={styles.spaceText}>
-                    <Text style={styles.text}>Selecione o Evento:  </Text>
-                </View>
-                <Dropdown items={event} onSelect={handleSelectItem2} disabled={!selectedItemId1} />
-                <View style={styles.spaceText}>
-                    <Text style={styles.text}>Novo Nome do Evento:  </Text>
+                    <Text style={styles.text}>Nome do Evento:  </Text>
                 </View>
                 <Inputs
-                    ref={newEventInput}
+                    ref={eventInput}
                     autoCapitalize='none'
-                    value={newEvent}
-                    autoCorrect={false}
+                    value={event}
                     iconName={''}
                     length={35}
-                    onChangeText={setNewEvent}
+                    autoCorrect={false}
+                    onChangeText={setEvent}
                 />
-
                 <View style={styles.spaceText}>
-                    <Text style={styles.text}>Nova Descrição do Evento:  </Text>
+                    <Text style={styles.text}>Descrição do evento:  </Text>
                 </View>
                 <Inputs
                     ref={descriptionInput}
@@ -142,28 +100,23 @@ export default function EditEvent({ navigation }) {
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Data de Inicio do Evento:  </Text>
                 </View>
-                <DateTime
+                <DateTime 
                     select="date"
-                    onChange={setDate} />
+                    onChange={setDate} 
+                    />
                 <View style={styles.spaceText}>
                     <Text style={styles.text}>Hora de Inicio do Evento: </Text>
                 </View>
-                <DateTime
+                <DateTime 
                     select="time"
-                    onChange={setTime} />
+                    onChange={setTime} 
+                    />
                 <View style={{ paddingBottom: 80 }} />
                 <CustomButton
-                    text="Salvar"
-                    backgroundColor="#F8E257"
-                    textColor="#093D73"
-                    onPress={handleSave}
-                    style={{ marginBottom: 20 }}
-                />
-                <CustomButton
-                    text="Remover"
-                    backgroundColor="#F8E257"
-                    textColor="#093D73"
-                    onPress={handleDelete}
+                    text="Adicionar"
+                    backgroundColor="#093D73"
+                    textColor="#FFFFFF"
+                    onPress={handlePost}
                     style={{ marginBottom: 20 }}
                 />
                 <View style={{ paddingTop: 30 }} />
@@ -186,6 +139,7 @@ const styles = StyleSheet.create({
         fontFamily: 'WorkSans-Regular',
         fontSize: 16,
         color: '#093D73',
+        left: 10,
     },
     spaceText: {
         flexDirection: 'row',

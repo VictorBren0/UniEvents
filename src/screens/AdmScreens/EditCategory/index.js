@@ -99,15 +99,15 @@ export default function EditCategory({ navigation }) {
                 <View style={{ paddingBottom: 150 }} />
                 <CustomButton
                     text="Salvar"
-                    backgroundColor="#F8E257"
-                    textColor="#093D73"
+                    backgroundColor="#093D73"
+                    textColor="#FFFFFF"
                     onPress={handleSave}
                     style={{ marginBottom: 20 }}
                 />
                 <CustomButton
                     text="Remover"
-                    backgroundColor="#F8E257"
-                    textColor="#093D73"
+                    backgroundColor="#093D73"
+                    textColor="#FFFFFF"
                     onPress={handleDelete}
                     style={{ marginBottom: 20 }}
                 />
@@ -130,6 +130,7 @@ const styles = StyleSheet.create({
         fontFamily: 'WorkSans-Regular',
         fontSize: 16,
         color: '#093D73',
+        left: 10,
     },
     spaceText: {
         flexDirection: 'row',
